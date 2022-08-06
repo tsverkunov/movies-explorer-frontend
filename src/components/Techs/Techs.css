@@ -1,0 +1,36 @@
+.techs {
+    text-align: center;
+}
+
+.techs__title {
+    margin: 0;
+    padding: 0 0 24px;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 1.2;
+}
+
+.techs__description {
+    margin: 0;
+    padding: 0 5px 36px;
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+.techs__icons {
+    display: grid;
+    grid-template-columns: repeat(2, 84px);
+    justify-content: center;
+    grid-gap: 10px;
+    padding: 0 0 56px;
+}
+.techs__icon {
+    list-style: none;
+    background: #303030;
+    border-radius: 10px;
+    padding: 21px 0;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 1.2;
+}

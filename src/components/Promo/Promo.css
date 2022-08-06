@@ -6,16 +6,17 @@
     padding: 70px 0 44px;
 }
 .promo__title {
+    margin: 0;
     font-weight: 400;
     font-size: 30px;
-    line-height: 1.3;
-    letter-spacing: -0.04em;
-    padding: 0 0 24px;
+    line-height: 1.2;
+    padding: 0 10px 24px;
 }
 .promo__description {
+    margin: 0 30px;
     font-weight: 400;
     font-size: 13px;
-    line-height: 16px;
+    line-height: 1.3;
     opacity: .5;
-    padding: 0 0 80px;
+    padding: 0 10px 80px;
 }

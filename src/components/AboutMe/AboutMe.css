@@ -1,0 +1,51 @@
+.aboutMe {
+
+}
+
+.aboutMe__image {
+    width: 100%;
+    border-radius: 10px;
+    padding: 0 0 40px;
+}
+
+.aboutMe__name {
+    margin: 0;
+    padding: 0 0 20px;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 1.2;
+}
+
+.aboutMe__speciality {
+    margin: 0;
+    padding: 0 0 20px;
+    font-weight: 500;
+    font-size: 11px;
+    line-height: 1.4;
+}
+
+.aboutMe__biography {
+    margin: 0;
+    padding: 0 0 40px;
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+.aboutMe__socialNetworks {
+    margin: 0;
+    padding: 0 0 70px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.aboutMe__networkItem {
+    list-style: none;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.3;
+}
+.aboutMe__link {
+    text-decoration: none;
+    color: #fff;
+}

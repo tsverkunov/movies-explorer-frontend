@@ -1,0 +1,19 @@
+.sectionWithInfo {
+    padding: 0 18px;
+}
+
+.sectionWithInfo__title {
+    margin: 0;
+    padding: 70px 0 24px;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 1.4;
+}
+
+.sectionWithInfo__line {
+    display: block;
+    background: #DADADA;
+    width: 100%;
+    height: 1px;
+    margin: 0 0 60px;
+}
