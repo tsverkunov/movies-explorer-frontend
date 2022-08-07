@@ -1,0 +1,16 @@
+.cardList__add-container {
+    text-align: center;
+    padding: 50px 40px 80px;
+}
+.cardList__add {
+    padding: 10px 20px;
+    text-align: center;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 15px;
+    color: #FFFFFF;
+    background: #202020;
+    border: 1px solid #424242;
+    border-radius: 6px;
+    width: 100%;
+}

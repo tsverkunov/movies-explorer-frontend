@@ -3,10 +3,10 @@ import './NavTab.css'
 
 function NavTab() {
   return (
-    <div className="navTab__container">
-      <button className="navTab">
+    <div className="navTab">
+      <a className="navTab__link" href="https://github.com/tsverkunov">
         Узнать больше
-      </button>
+      </a>
     </div>
   );
 }

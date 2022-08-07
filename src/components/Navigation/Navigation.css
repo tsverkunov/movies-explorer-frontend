@@ -1,0 +1,19 @@
+.nav__list {
+    list-style: none;
+    margin: 0;
+    padding: 30px 0 10px;
+}
+
+.nav__item {
+    padding: 0 0 12px;
+}
+
+.nav__link {
+    text-decoration: none;
+    color: #fff;
+    transition: opacity .3s;
+}
+
+.nav__link:hover {
+    opacity: .5;
+}

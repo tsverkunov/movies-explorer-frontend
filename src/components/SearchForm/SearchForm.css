@@ -1,0 +1,30 @@
+.searchForm__fieldset {
+    margin: 0;
+    padding: 0 0 9px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: none;
+    border-bottom: 1px solid #424242;
+}
+
+.searchForm__input {
+    color: #8B8B8B;
+    background: #202020;
+    border: none;
+    outline-style: none;
+    width: 80%;
+}
+
+.searchForm__button {
+    background: #4285F4 url("../../images/search_icon.svg") no-repeat center;
+    border: none;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    margin: 0;
+    padding: 0;
+}
+
+
+

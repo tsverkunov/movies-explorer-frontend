@@ -2,9 +2,11 @@
     text-align: center;
     background: #073042;
 }
+
 .promo__image {
     padding: 70px 0 44px;
 }
+
 .promo__title {
     margin: 0;
     font-weight: 400;
@@ -12,6 +14,7 @@
     line-height: 1.2;
     padding: 0 10px 24px;
 }
+
 .promo__description {
     margin: 0 30px;
     font-weight: 400;
