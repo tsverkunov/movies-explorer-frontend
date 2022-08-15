@@ -17,3 +17,14 @@
 .nav__link:hover {
     opacity: .5;
 }
+
+@media screen and (min-width: 500px){
+    .nav__list {
+        display: flex;
+        gap: 20px;
+        padding: 0;
+    }
+    .nav__item {
+        padding: 0;
+    }
+}

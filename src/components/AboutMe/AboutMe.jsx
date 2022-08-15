@@ -1,5 +1,5 @@
 import React from 'react';
-import SectionWithInfo from '../sectionWithInfo/sectionWithInfo';
+import SectionWithInfo from '../sectionWithInfo/SectionWithInfo';
 import './AboutMe.css'
 import studentsPhoto from '../../images/students_photo.png'
 
@@ -16,7 +16,7 @@ function AboutMe() {
             ушёл с постоянной работы.</p>
           <ul className="aboutMe__socialNetworks">
             <li className="aboutMe__networkItem">
-              <a className="aboutMe__link" href="https://github.com/tsverkunov" target="_blank" rel="noreferrer">Facebook</a>
+              <a className="aboutMe__link" href="https://facebook.com/" target="_blank" rel="noreferrer">Facebook</a>
             </li>
             <li className="aboutMe__networkItem">
               <a className="aboutMe__link" href="https://github.com/tsverkunov" target="_blank" rel="noreferrer">Github</a>

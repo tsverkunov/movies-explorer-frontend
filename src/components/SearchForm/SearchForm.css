@@ -1,6 +1,6 @@
 .searchForm__fieldset {
     margin: 0;
-    padding: 0 0 9px;
+    padding: 90px 0 9px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -24,7 +24,10 @@
     height: 35px;
     margin: 0;
     padding: 0;
+    transition: opacity .3s;
+    cursor: pointer;
 }
 
-
-
+.searchForm__button:hover {
+    opacity: .7;
+}

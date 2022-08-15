@@ -1,10 +1,10 @@
 import React from 'react';
-import SectionWithInfo from '../sectionWithInfo/sectionWithInfo';
+import SectionWithInfo from '../sectionWithInfo/SectionWithInfo';
 import './Techs.css';
 
 function Techs() {
   return (
-    <div>
+    <div className="techs__container">
       <SectionWithInfo title="Технологии">
         <div className="techs">
           <h3 className="techs__title">7 технологий</h3>

@@ -1,5 +1,5 @@
 import React from 'react';
-import './sectionWithInfo.css'
+import './SectionWithInfo.css'
 
 function SectionWithInfo({children, title}) {
   return (

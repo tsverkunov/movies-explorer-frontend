@@ -7,8 +7,10 @@ function Footer() {
     <footer className="footer">
       <p className="footer__description">Учебный проект Яндекс.Практикум х BeatFilm.</p>
       <span className="footer__line"></span>
-      <Navigation/>
-      <p className="footer__copyright">&copy; 2022</p>
+      <div className="footer__social-container">
+        <Navigation/>
+        <p className="footer__copyright">&copy; 2022</p>
+      </div>
     </footer>
   );
 }

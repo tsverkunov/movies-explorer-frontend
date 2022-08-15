@@ -1,12 +1,16 @@
 import React from 'react';
-import './NavTab.css'
+import './NavTab.css';
+import { Route } from 'react-router-dom';
 
-function NavTab() {
+function NavTab({onHiddenRef}) {
+
   return (
     <div className="navTab">
-      <a className="navTab__link" href="https://github.com/tsverkunov">
-        Узнать больше
-      </a>
+      <Route>
+        <button className="navTab__button" onClick={onHiddenRef} aria-label="Узнать больше">
+          Узнать больше
+        </button>
+      </Route>
     </div>
   );
 }

@@ -11,7 +11,7 @@ function SearchForm() {
           placeholder="Фильм"
           className="searchForm__input"
         />
-        <button className="searchForm__button"></button>
+        <button className="searchForm__button" aria-label="Искать"></button>
       </fieldset>
       <FilterCheckbox/>
     </form>

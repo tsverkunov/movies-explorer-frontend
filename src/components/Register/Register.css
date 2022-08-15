@@ -1,0 +1,133 @@
+.register {
+    box-sizing: border-box;
+    padding: 56px 30px 30px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.register__greeting-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.register__logo {
+    padding: 0 0 50px;
+}
+
+.register__greeting {
+    margin: 0;
+    padding: 0 0 80px;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 1.2;
+}
+
+.register__form {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.register__form-container {
+
+}
+
+.register__fieldset {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    border: none;
+    min-height: 95px;
+}
+
+.register__fieldset_hidden {
+    display: none;
+}
+
+.register__label {
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 12px;
+    color: #8B8B8B;
+    padding: 0 0 10px;
+}
+
+.register__input {
+    background: #2F2F2F;
+    border-radius: 8px;
+    padding: 15px;
+    border: none;
+    color: #fff;
+}
+
+.register__input_password {
+    color: #EE3465;
+}
+
+.register__error {
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 12px;
+    color: #EE3465;
+    padding: 10px 0 5px;
+}
+
+.register__button {
+    width: 100%;
+    background: #4285F4;
+    border-radius: 3px;
+    border: none;
+    color: #fff;
+    padding: 15px 0;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 15px;
+    cursor: pointer;
+    transition: opacity .2s;
+}
+
+.register__button:hover {
+    opacity: .7;
+}
+
+.register__sign-in-container {
+    text-align: center;
+    padding: 14px 0 0;
+}
+
+.register__sign-up {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 1.2;
+    color: #8B8B8B;
+}
+
+.register__sign-in-link {
+    text-decoration: none;
+    color: #4285F4;
+    transition: opacity .2s;
+}
+
+.register__sign-in-link:hover {
+    opacity: .6;
+}
+
+@media screen and (min-width: 500px) {
+    .register {
+        width: 396px;
+    }
+
+    .register__form {
+        max-height: 380px;
+    }
+
+    .register__greeting-container {
+        align-items: self-start;
+    }
+}

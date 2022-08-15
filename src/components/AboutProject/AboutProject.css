@@ -39,3 +39,27 @@
     color: #A0A0A0;
     padding: 11px 0 0;
 }
+
+@media screen and (min-width: 500px){
+    .aboutProject__subtitle {
+        font-size: 20px;
+        line-height: 24px;
+        padding: 0 0 22px;
+    }
+    .aboutProject__description {
+        font-size: 12px;
+        line-height: 18px;
+        padding: 0 0 93px;
+    }
+    .aboutProject__description-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-column-gap: 30px;
+    }
+    .aboutProject__time-limit {
+        grid-template-columns: 140px 1fr;
+        font-size: 14px;
+        line-height: 1.2;
+        padding: 0 0 90px;
+    }
+}

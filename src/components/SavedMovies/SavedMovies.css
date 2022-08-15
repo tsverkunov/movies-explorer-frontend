@@ -1,0 +1,14 @@
+.savedMovies {
+    padding: 0 10px;
+}
+
+@media screen and (min-width: 500px){
+    .savedMovies {
+        padding: 0 30px;
+    }
+}
+@media screen and (min-width: 1024px){
+    .savedMovies {
+        padding: 0 70px;
+    }
+}

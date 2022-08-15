@@ -11,7 +11,7 @@
 }
 
 .techs__description {
-    margin: 0;
+    margin: 0 auto;
     padding: 0 5px 36px;
     font-weight: 400;
     font-size: 11px;
@@ -34,4 +34,32 @@
     font-weight: 400;
     font-size: 12px;
     line-height: 1.2;
+}
+
+@media screen and (min-width: 500px){
+    .techs__container {
+        background: #272727;
+    }
+    .techs__title {
+        padding: 0 0 22px;
+        font-size: 50px;
+    }
+    .techs__description {
+        font-size: 12px;
+    }
+    .techs__icons {
+        display: flex;
+    }
+    .techs__icon {
+        width: 84px;
+    }
+}
+
+@media screen and (min-width: 1024px){
+    .techs__description {
+        max-width: 460px;
+    }
+    .techs__icons {
+        padding: 0 0 100px;
+    }
 }
