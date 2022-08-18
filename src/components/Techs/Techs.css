@@ -20,7 +20,7 @@
 
 .techs__icons {
     display: grid;
-    grid-template-columns: repeat(2, 84px);
+    grid-template-columns: repeat(2, 74px);
     justify-content: center;
     grid-gap: 10px;
     padding: 0 0 56px;
@@ -30,7 +30,7 @@
     list-style: none;
     background: #303030;
     border-radius: 10px;
-    padding: 21px 0;
+    padding: 21px 3px;
     font-weight: 400;
     font-size: 12px;
     line-height: 1.2;
@@ -47,11 +47,14 @@
     .techs__description {
         font-size: 12px;
     }
+}
+
+@media screen and (min-width: 760px){
     .techs__icons {
         display: flex;
     }
     .techs__icon {
-        width: 84px;
+        width: 74px;
     }
 }
 
@@ -60,6 +63,10 @@
         max-width: 460px;
     }
     .techs__icons {
+        display: flex;
         padding: 0 0 100px;
+    }
+    .techs__icon {
+        width: 74px;
     }
 }

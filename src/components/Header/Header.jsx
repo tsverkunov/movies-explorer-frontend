@@ -28,7 +28,7 @@ function Header({ main, onOpenMenu, isMenuActive, onCloseMenu }) {
               Сохранённые фильмы
             </NavLink>
           </div>
-          <span className="header__account">Аккаунт</span>
+          <Link className="header__account" to="/profile">Аккаунт</Link>
         </>
       }
 
