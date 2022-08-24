@@ -34,8 +34,8 @@
     content: '';
     position: absolute;
     top: 2px;
-    right: 2px;
-    background: #2BE080;
+    left: 2px;
+    background: #8B8B8B;
     width: 16px;
     height: 16px;
     border-radius: 50%;
@@ -47,7 +47,7 @@
     content: '';
     position: absolute;
     top: 2px;
-    left: 2px;
+    left: 18px;
     background: #2BE080;
     width: 16px;
     height: 16px;

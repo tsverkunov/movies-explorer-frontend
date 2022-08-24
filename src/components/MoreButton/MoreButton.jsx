@@ -1,11 +1,11 @@
 import React from 'react';
 import './MoreButton.css'
 
-function MoreButton() {
+function MoreButton({addCards, hiddenButton}) {
 
   return (
-    <div className="add__container">
-      <button className="add">Ещё</button>
+    <div className={`add__container ${hiddenButton && 'add__container_hidden'}`}>
+      <button className="add" onClick={addCards} type="button">Ещё</button>
     </div>
   );
 }

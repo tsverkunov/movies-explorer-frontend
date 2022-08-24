@@ -3,9 +3,7 @@
     flex-direction: column;
     text-align: center;
     padding: 0 30px;
-    min-height: calc(100vh - 75px);
-    /*justify-content: center;*/
-    /*align-content: center;*/
+    min-height: 100vh;
 }
 
 .profile__greetings {

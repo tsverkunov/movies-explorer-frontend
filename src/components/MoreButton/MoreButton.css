@@ -4,6 +4,9 @@
     margin: 0 auto;
     max-width: 240px;
 }
+.add__container_hidden {
+    display: none;
+}
 
 .add {
     padding: 10px 20px;

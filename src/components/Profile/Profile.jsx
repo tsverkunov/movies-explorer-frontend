@@ -1,14 +1,20 @@
 import React from 'react';
 import './Profile.css'
 import { Link } from 'react-router-dom';
+import Header from '../Header/Header';
 
 const owner = {
   name: 'Иван'
 }
 
-function Profile() {
+function Profile({isMenuActive, onCloseMenu, onOpenMenu}) {
   return (
     <div className="profile">
+      <Header
+        onOpenMenu={onOpenMenu}
+        onCloseMenu={onCloseMenu}
+        isMenuActive={isMenuActive}
+      />
       <h2 className="profile__greetings">{`Привет, ${owner.name}!`}</h2>
       <div className="profile__fields-wrapper">
         <div className="profile__field-container">

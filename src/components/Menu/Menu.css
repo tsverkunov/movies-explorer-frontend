@@ -10,7 +10,7 @@
     font-weight: 400;
     font-size: 12px;
     line-height: 1.2;
-    background: #202020;
+    background: #262626;
     z-index: 1;
     width: 100%;
 }
@@ -41,6 +41,8 @@
     background: #313131;
     border-radius: 20px;
     width: 100px;
+    text-decoration: none;
+    color: #fff;
 }
 
 .menu__link-movies {
