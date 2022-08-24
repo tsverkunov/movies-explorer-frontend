@@ -1,0 +1,30 @@
+.add__container {
+    text-align: center;
+    padding: 50px 40px 80px;
+    margin: 0 auto;
+    max-width: 240px;
+}
+
+.add {
+    padding: 10px 20px;
+    text-align: center;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 15px;
+    color: #FFFFFF;
+    background: #202020;
+    border: 1px solid #424242;
+    border-radius: 6px;
+    width: 100%;
+    transition: opacity .3s;
+    cursor: pointer;
+}
+.add:hover {
+    opacity: .6;
+}
+
+@media screen and (min-width: 500px){
+    .add__container {
+        max-width: 320px;
+    }
+}

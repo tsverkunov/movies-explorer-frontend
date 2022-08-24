@@ -1,0 +1,52 @@
+.moviesCard {
+    padding: 40px 0 14px;
+}
+
+.moviesCard__image {
+    width: 100%;
+    height: 168px;
+    cursor: pointer;
+}
+
+.moviesCard__title-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 16px;
+}
+
+.moviesCard__title {
+    margin: 0;
+    padding: 0;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 1.3;
+}
+
+.moviesCard__like-image {
+    width: 14px;
+    height: 12px;
+    cursor: pointer;
+    transition: opacity .3s;
+}
+.moviesCard__like-image:hover {
+    opacity: .6;
+}
+.moviesCard__duration {
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 1.2;
+    color: #8B8B8B;
+    padding: 0 16px;
+}
+
+@media screen and (min-width: 500px){
+    .moviesCard__image {
+        height: 190px;
+    }
+}
+@media screen and (min-width: 1024px){
+    .moviesCard__image {
+        height: 203px;
+    }
+}
