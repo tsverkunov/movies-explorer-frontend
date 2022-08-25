@@ -43,7 +43,7 @@ import Preloader from '../Preloader/Preloader';
 // ];
 
 
-const MoviesCardList = ({cards, savedMovies, isFetching, error }) => (
+const MoviesCardList = ({cards, savedMovies, isFetching, error,saveCardsId }) => (
   <div className="cardList">
     {
       isFetching
@@ -54,7 +54,12 @@ const MoviesCardList = ({cards, savedMovies, isFetching, error }) => (
             ?
             <span className="cardList__not-found">Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз</span>
             : cards.map(card => (
-              <MoviesCard card={card} key={card.id} savedMovies={savedMovies}/>
+              <MoviesCard
+                card={card}
+                key={card.id}
+                savedMovies={savedMovies}
+                saveCardsId={saveCardsId}
+              />
             ))
     }
   </div>

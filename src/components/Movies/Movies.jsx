@@ -18,6 +18,7 @@ function Movies({
                   error,
                   addCards,
                   hiddenButton,
+                  saveCardsId,
                 }) {
   return (
     <div className="movies">
@@ -35,6 +36,7 @@ function Movies({
         cards={cards}
         isFetching={isFetching}
         error={error}
+        saveCardsId={saveCardsId}
       />
       <MoreButton
         addCards={addCards}

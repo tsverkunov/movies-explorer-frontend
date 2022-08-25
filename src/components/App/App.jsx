@@ -25,6 +25,7 @@ const App = () => {
   const [error, setError] = useState('');
   const [hiddenButton, setHiddenButton] = useState(false);
   const [requestValue, setRequestValue] = useState('');
+  const [savedMoviesId, setSavedMoviesId] = useState([])
 
   useEffect(() => {
     if (filterCards.length && window.screen.width >= 320 && window.screen.width < 480) {
@@ -38,33 +39,6 @@ const App = () => {
     }
   }, [filterCards]);
 
-  // window.addEventListener('resize', resizeThrottler, false);
-  //
-  // const actualResizeHandler = () => {
-  //   if (window.innerWidth < 480 && cards.length < 5) {
-  //     setCards(cards.concat(filterCards.slice(cards.length, 5)));
-  //   }
-  //   if (window.innerWidth >= 480 && window.screen.width < 1280 && cards.length < 8) {
-  //     setCards(cards.concat(filterCards.slice(cards.length, 8)));
-  //   }
-  //   if (window.innerWidth > 1280 && cards.length < 12) {
-  //     setCards(cards.concat(filterCards.slice(cards.length, 12)));
-  //   }
-  //   console.log(window.innerWidth)
-  // };
-  //
-  // let resizeTimeout;
-  //
-  // function resizeThrottler() {
-  //   if (!resizeTimeout) {
-  //
-  //     resizeTimeout = setTimeout(() => {
-  //       resizeTimeout = null;
-  //       actualResizeHandler();
-  //     }, 66);
-  //   }
-  // }
-
   useEffect(() => {
     if (cards.length === filterCards.length) {
       setHiddenButton(true);
@@ -72,6 +46,42 @@ const App = () => {
       setHiddenButton(false);
     }
   }, [cards.length, filterCards.length]);
+
+  useEffect(() => {
+    setFilterCards([]);
+    const filter = allCards.filter((card) => card.nameRU.toLowerCase().includes(requestValue.toLowerCase()),
+    );
+    setFilterCards(filter);
+  }, [allCards, requestValue]);
+
+  // window.addEventListener('resize', resizeThrottler, true);
+  //
+  // const actualResizeHandler = () => {
+  //   if (window.screen.width < 480 ) {
+  //     setCards(filterCards.slice(0, 5));
+  //   }
+  //   if (window.screen.width >= 480 && window.screen.width < 1280 ) {
+  //     setCards(filterCards.slice(0, 8));
+  //   }
+  //   if (window.screen.width > 1280 ) {
+  //     setCards(filterCards.slice(0, 12));
+  //   }
+  //   // console.log(window.screen.width)
+  // };
+  //
+  //
+  // let resizeTimeout;
+  // function resizeThrottler() {
+  //   if (!resizeTimeout) {
+  //     resizeTimeout = setTimeout(() => {
+  //       console.log(resizeTimeout);
+  //       resizeTimeout = null;
+  //       console.log("after null :", resizeTimeout);
+  //       actualResizeHandler();
+  //     }, 500);
+  //   }
+  // }
+
 
   const handleAddCards = () => {
     let moreCards;
@@ -83,13 +93,9 @@ const App = () => {
     }
     setCards(cards.concat(moreCards));
   };
-
-  useEffect(() => {
-    setFilterCards([]);
-    const filter = allCards.filter((card) => card.nameRU.toLowerCase().includes(requestValue.toLowerCase()),
-    );
-    setFilterCards(filter);
-  }, [allCards, requestValue]);
+  const handleSaveCardsId = (cardId) => {
+    setSavedMoviesId([...savedMoviesId, cardId])
+  }
 
   const handleOnChangeCheckbox = () => {
     setIsChecked(!isChecked);
@@ -152,6 +158,7 @@ const App = () => {
               error={error}
               addCards={handleAddCards}
               hiddenButton={hiddenButton}
+              saveCardsId={handleSaveCardsId}
             />
           </Route>
           <Route path="/saved-movies">
@@ -165,7 +172,6 @@ const App = () => {
               isChecked={isChecked}
               onChangeCheckbox={handleOnChangeCheckbox}
             />
-
           </Route>
           <Route path="/profile">
             <Profile

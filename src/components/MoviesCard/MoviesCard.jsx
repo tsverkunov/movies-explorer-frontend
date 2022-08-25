@@ -3,7 +3,8 @@ import './MoviesCard.css';
 
 const IMAGE_URL = ' https://api.nomoreparties.co';
 
-function MoviesCard({ card, savedMovies }) {
+function MoviesCard({ card, savedMovies, saveCardsId }) {
+  console.log(card);
 
   function getTimeFromMins(mins) {
     const hours = Math.trunc(mins / 60);
@@ -12,6 +13,10 @@ function MoviesCard({ card, savedMovies }) {
   }
 
   const duration = getTimeFromMins(card.duration);
+
+  const onSaveCardsId = () => {
+    saveCardsId(card.id);
+  };
 
   return (
     <div className="moviesCard">
@@ -22,13 +27,24 @@ function MoviesCard({ card, savedMovies }) {
         <h3 className="moviesCard__title">{card.nameRU}</h3>
         {
           savedMovies
-            ? <button type="button" className="moviesCard__button moviesCard__button_close"
-                      aria-label="Удалить из любимых"></button>
+            ? <button
+              type="button"
+              className="moviesCard__button moviesCard__button_close"
+              onClick={onSaveCardsId}
+              aria-label="Удалить из любимых"
+            ></button>
             : card.like
-              ? <button type="button" className="moviesCard__button moviesCard__button_like-active"
-                        aria-label="Нравится"></button>
-              : <button type="button" className="moviesCard__button moviesCard__button_like-deactivated"
-                        aria-label="Не нравится"></button>
+              ? <button
+                type="button"
+                className="moviesCard__button moviesCard__button_like-active"
+                aria-label="Нравится"
+              ></button>
+              : <button
+                type="button"
+                className="moviesCard__button moviesCard__button_like-deactivated"
+
+                aria-label="Не нравится"
+              ></button>
         }
       </div>
       <span className="moviesCard__duration">{duration}</span>
