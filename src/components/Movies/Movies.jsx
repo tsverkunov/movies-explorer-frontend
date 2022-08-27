@@ -7,18 +7,20 @@ import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 
 function Movies({
-                  onGetMovies,
-                  cards,
-                  isFetching,
-                  onChangeCheckbox,
-                  isChecked,
-                  isMenuActive,
-                  onCloseMenu,
-                  onOpenMenu,
-                  error,
-                  addCards,
-                  hiddenButton,
-                  saveCardsId,
+  onGetMovies,
+  cards,
+  isFetching,
+  onChangeCheckbox,
+  isChecked,
+  isMenuActive,
+  onCloseMenu,
+  onOpenMenu,
+  error,
+  addCards,
+  hiddenButton,
+  saveMovies,
+  removeMovies,
+  savedMoviesList,
                 }) {
   return (
     <div className="movies">
@@ -36,7 +38,9 @@ function Movies({
         cards={cards}
         isFetching={isFetching}
         error={error}
-        saveCardsId={saveCardsId}
+        saveMovies={saveMovies}
+        savedMoviesList={savedMoviesList}
+        removeMovies={removeMovies}
       />
       <MoreButton
         addCards={addCards}

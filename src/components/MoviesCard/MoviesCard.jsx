@@ -3,8 +3,8 @@ import './MoviesCard.css';
 
 const IMAGE_URL = ' https://api.nomoreparties.co';
 
-function MoviesCard({ card, savedMovies, saveCardsId }) {
-  console.log(card);
+function MoviesCard({ card, savedMovies, saveMovies, removeMovies, savedMoviesList }) {
+  let isActive = savedMoviesList.find(item => item.id === card.id);
 
   function getTimeFromMins(mins) {
     const hours = Math.trunc(mins / 60);
@@ -15,7 +15,11 @@ function MoviesCard({ card, savedMovies, saveCardsId }) {
   const duration = getTimeFromMins(card.duration);
 
   const onSaveCardsId = () => {
-    saveCardsId(card.id);
+    saveMovies(card);
+  };
+
+  const onRemoveCardId = () => {
+    removeMovies(card);
   };
 
   return (
@@ -30,19 +34,20 @@ function MoviesCard({ card, savedMovies, saveCardsId }) {
             ? <button
               type="button"
               className="moviesCard__button moviesCard__button_close"
-              onClick={onSaveCardsId}
+              onClick={onRemoveCardId}
               aria-label="Удалить из любимых"
             ></button>
-            : card.like
+            : isActive
               ? <button
                 type="button"
                 className="moviesCard__button moviesCard__button_like-active"
+                onClick={onRemoveCardId}
                 aria-label="Нравится"
               ></button>
               : <button
                 type="button"
                 className="moviesCard__button moviesCard__button_like-deactivated"
-
+                onClick={onSaveCardsId}
                 aria-label="Не нравится"
               ></button>
         }

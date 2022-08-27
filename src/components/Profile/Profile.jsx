@@ -1,35 +1,63 @@
 import React from 'react';
-import './Profile.css'
+import './Profile.css';
 import { Link } from 'react-router-dom';
 import Header from '../Header/Header';
+import { useFormWithValidation } from '../../utils/hooks/useFormWithValidation';
 
 const owner = {
-  name: 'Иван'
-}
+  name: 'Иван',
+};
 
-function Profile({isMenuActive, onCloseMenu, onOpenMenu}) {
+function Profile({ isMenuActive, onCloseMenu, onOpenMenu }) {
+  const { values, handleChange, errors, isValid, resetForm } = useFormWithValidation();
+
+  const onSubmit = () => {
+    resetForm()
+  }
+
   return (
-    <div className="profile">
+    <section className="profile">
       <Header
         onOpenMenu={onOpenMenu}
         onCloseMenu={onCloseMenu}
         isMenuActive={isMenuActive}
       />
       <h2 className="profile__greetings">{`Привет, ${owner.name}!`}</h2>
-      <div className="profile__fields-wrapper">
-        <div className="profile__field-container">
-          <span className="profile__field">Имя</span>
-          <span className="profile__field-value">Иван</span>
-        </div>
+      <form className="profile__form" onSubmit={onSubmit}>
+        <fieldset className="profile__fieldset">
+          <label className="profile__label" htmlFor="name">Имя</label>
+          <input
+            type="text"
+            className="profile__input"
+            name="name"
+            id="name"
+            value={values.name}
+            onChange={handleChange}
+            required
+            minLength="2"
+            maxLength="30"
+          />
+        </fieldset>
+        <span className="profile__error">{errors.name}</span>
         <span className="profile__line"></span>
-        <div className="profile__field-container">
-          <span className="profile__field">E-mail</span>
-          <span className="profile__field-value">11@22.ru</span>
-        </div>
-      </div>
-      <Link to="/" className="profile_editing">Редактировать</Link>
+        <fieldset className="profile__fieldset">
+          <label className="profile__label" htmlFor="email">E-mail</label>
+          <input
+            type="text"
+            className="profile__input"
+            name="email"
+            id="email"
+            value={values.email}
+            onChange={handleChange}
+            required
+          />
+        </fieldset>
+        <span className="profile__error">{errors.email}</span>
+        <div className="profile__helper"></div>
+        <button type="submit" className="profile__editing-button" disabled={!isValid}>Редактировать</button>
+      </form>
       <Link to="/sign-up" className="profile__sign-out">Выйти из аккаунта</Link>
-    </div>
+    </section>
   );
 }
 

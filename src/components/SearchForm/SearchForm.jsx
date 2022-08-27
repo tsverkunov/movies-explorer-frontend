@@ -1,35 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './SearchForm.css';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 
-function SearchForm({onGetMovies, isChecked, onChangeCheckbox}) {
-  const [formValues, setFormValues] = useState({search: ''})
-  const [formErrors, setFormErrors] = useState({search: ''})
-  const [isValid, setValidity] = useState(false);
-  const [isButtonDisabled , setIsButtonDisabled] = useState(true)
+function SearchForm({ onGetMovies, isChecked, onChangeCheckbox }) {
+  const [values, setValues] = useState({ search: '' });
+  const [errors, setErrors] = useState({ search: '' });
+  const [isValid, setIsValid] = useState(false);
 
   const handleChange = (e) => {
-    const {name, value, validationMessage} = e.target
-    const input = e.target
-    setFormValues({...formValues, [name]: value})
-
-    setValidity(input.validity.valid);
-    if (!isValid) {
-      setFormErrors({...formErrors, [name]: validationMessage})
-    } else {
-      setFormErrors({...formErrors, [name]: ''})
-    }
-  }
-
-  useEffect(() => {
-    const isFormValidValue = Object.keys(formErrors).every(key => !formErrors[key])
-    setIsButtonDisabled(!isFormValidValue)
-  },[formErrors])
+    const target = e.target;
+    const { name, value, validationMessage } = target;
+    setValues({ ...values, [name]: value });
+    setErrors({ ...errors, [name]: validationMessage });
+    setIsValid(target.closest('form').checkValidity());
+  };
 
   const onSubmit = (e) => {
-    e.preventDefault()
-    onGetMovies(formValues)
-  }
+    e.preventDefault();
+    onGetMovies(values);
+  };
 
   return (
     <form className="searchForm" onSubmit={onSubmit}>
@@ -39,7 +28,7 @@ function SearchForm({onGetMovies, isChecked, onChangeCheckbox}) {
             name="search"
             type="text"
             onChange={handleChange}
-            value={formValues.search}
+            value={values.search}
             placeholder="Фильм"
             className="searchForm__input"
             minLength="2"
@@ -50,10 +39,10 @@ function SearchForm({onGetMovies, isChecked, onChangeCheckbox}) {
             className="searchForm__button"
             aria-label="Искать"
             type="submit"
-            disabled={isButtonDisabled}
+            disabled={!isValid}
           ></button>
         </div>
-        <span className="searchForm__error">{formErrors.search}</span>
+        <span className="searchForm__error">{errors.search}</span>
       </fieldset>
       <FilterCheckbox isChecked={isChecked} onChangeCheckbox={onChangeCheckbox}/>
     </form>

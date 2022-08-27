@@ -2,6 +2,7 @@ import './App.css';
 import React, { useEffect, useState } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import * as MoviesApi from '../../utils/MoviesApi';
+import * as MainApi from '../../utils/MainApi'
 import Main from '../Main/Main';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
@@ -25,7 +26,7 @@ const App = () => {
   const [error, setError] = useState('');
   const [hiddenButton, setHiddenButton] = useState(false);
   const [requestValue, setRequestValue] = useState('');
-  const [savedMoviesId, setSavedMoviesId] = useState([])
+  const [savedMoviesList, setSavedMoviesList] = useState([])
 
   useEffect(() => {
     if (filterCards.length && window.screen.width >= 320 && window.screen.width < 480) {
@@ -54,33 +55,34 @@ const App = () => {
     setFilterCards(filter);
   }, [allCards, requestValue]);
 
-  // window.addEventListener('resize', resizeThrottler, true);
-  //
-  // const actualResizeHandler = () => {
-  //   if (window.screen.width < 480 ) {
-  //     setCards(filterCards.slice(0, 5));
-  //   }
-  //   if (window.screen.width >= 480 && window.screen.width < 1280 ) {
-  //     setCards(filterCards.slice(0, 8));
-  //   }
-  //   if (window.screen.width > 1280 ) {
-  //     setCards(filterCards.slice(0, 12));
-  //   }
-  //   // console.log(window.screen.width)
-  // };
-  //
-  //
-  // let resizeTimeout;
-  // function resizeThrottler() {
-  //   if (!resizeTimeout) {
-  //     resizeTimeout = setTimeout(() => {
-  //       console.log(resizeTimeout);
-  //       resizeTimeout = null;
-  //       console.log("after null :", resizeTimeout);
-  //       actualResizeHandler();
-  //     }, 500);
-  //   }
-  // }
+
+  useEffect(() => {
+    window.addEventListener('resize', resizeThrottler, false);
+  }, [])
+
+  const actualResizeHandler = () => {
+    if (window.screen.width < 480 ) {
+      setCards(filterCards.slice(0, 5));
+    }
+    if (window.screen.width >= 480 && window.screen.width < 1280 ) {
+      setCards(filterCards.slice(0, 8));
+    }
+    if (window.screen.width > 1280 ) {
+      setCards(filterCards.slice(0, 12));
+    }
+  };
+
+  let resizeTimeout;
+  function resizeThrottler() {
+    if (!resizeTimeout) {
+      resizeTimeout = setTimeout(() => {
+        console.log(resizeTimeout);
+        resizeTimeout = null;
+        console.log("after null :", resizeTimeout);
+        actualResizeHandler();
+      }, 500);
+    }
+  }
 
 
   const handleAddCards = () => {
@@ -93,8 +95,11 @@ const App = () => {
     }
     setCards(cards.concat(moreCards));
   };
-  const handleSaveCardsId = (cardId) => {
-    setSavedMoviesId([...savedMoviesId, cardId])
+  const handleSaveMovies = (card) => { // вызвать в postMovies
+    setSavedMoviesList([...savedMoviesList, card])
+  }
+  const handleRemoveMovies = (card) => {
+    setSavedMoviesList(savedMoviesList.filter((item) => item.id !== card.id))
   }
 
   const handleOnChangeCheckbox = () => {
@@ -122,6 +127,11 @@ const App = () => {
       })
       .finally(() => setIsFetching(false));
   };
+  const handleSaveMoviesInDB = (card) => {
+    MainApi.postMovies(card)
+      .then()
+      .catch()
+  }
 
   return (
     <div className="page">
@@ -129,12 +139,6 @@ const App = () => {
         <Switch>
           <Route path="/sign-up">
             <Register
-              hiddenInput=""
-              greetingText="Добро пожаловать!"
-              buttonText="Зарегистрироваться"
-              signInText="Уже зарегистрированы?"
-              link="/sign-in"
-              linkText="Войти"
             />
           </Route>
           <Route path="/sign-in">
@@ -158,7 +162,9 @@ const App = () => {
               error={error}
               addCards={handleAddCards}
               hiddenButton={hiddenButton}
-              saveCardsId={handleSaveCardsId}
+              saveMovies={handleSaveMovies}
+              removeMovies={handleRemoveMovies}
+              savedMoviesList={savedMoviesList}
             />
           </Route>
           <Route path="/saved-movies">
@@ -166,11 +172,13 @@ const App = () => {
               onOpenMenu={openMobileMenu}
               onCloseMenu={closeMobileMenu}
               isMenuActive={isMobileMenuActive}
-              cards={cards}
+              cards={savedMoviesList}
               isFetching={isFetching}
               onGetMovies={handleGetMovies}
               isChecked={isChecked}
               onChangeCheckbox={handleOnChangeCheckbox}
+              removeMovies={handleRemoveMovies}
+              savedMoviesList={savedMoviesList}
             />
           </Route>
           <Route path="/profile">

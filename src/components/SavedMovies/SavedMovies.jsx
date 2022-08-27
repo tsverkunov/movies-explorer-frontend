@@ -13,7 +13,9 @@ function SavedMovies({
                        isFetching,
                        onGetMovies,
                        isChecked,
-                       onChangeCheckbox
+                       onChangeCheckbox,
+                       removeMovies,
+                       savedMoviesList,
 }) {
   return (
     <div className="savedMovies">
@@ -27,7 +29,13 @@ function SavedMovies({
         onChangeCheckbox={onChangeCheckbox}
         isChecked={isChecked}
       />
-      <MoviesCardList savedMovies={true} cards={cards} isFetching={isFetching}/>
+      <MoviesCardList
+        savedMovies={true}
+        cards={cards}
+        isFetching={isFetching}
+        removeMovies={removeMovies}
+        savedMoviesList={savedMoviesList}
+      />
       <Footer/>
     </div>
   );

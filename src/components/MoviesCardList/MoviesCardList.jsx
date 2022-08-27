@@ -43,7 +43,15 @@ import Preloader from '../Preloader/Preloader';
 // ];
 
 
-const MoviesCardList = ({cards, savedMovies, isFetching, error,saveCardsId }) => (
+const MoviesCardList = ({
+                          cards,
+                          savedMovies,
+                          isFetching,
+                          error,
+                          saveMovies,
+                          removeMovies,
+                          savedMoviesList
+}) => (
   <div className="cardList">
     {
       isFetching
@@ -58,7 +66,9 @@ const MoviesCardList = ({cards, savedMovies, isFetching, error,saveCardsId }) =>
                 card={card}
                 key={card.id}
                 savedMovies={savedMovies}
-                saveCardsId={saveCardsId}
+                saveMovies={saveMovies}
+                savedMoviesList={savedMoviesList}
+                removeMovies={removeMovies}
               />
             ))
     }
