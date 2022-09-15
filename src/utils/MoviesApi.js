@@ -19,7 +19,7 @@ export const getMovies = () => {
       // 'Authorization': `Bearer ${token}`,
     },
     // authorization: 'e0347de3-3f3e-4b66-951f-031aa57f2a82',
-    // credentials: 'include',
+    credentials: 'include',
   })
     .then(checkRequest);
 };
