@@ -31,9 +31,12 @@ function RegisterForm({
         <div className="register-form__form-container">
           {children}
         </div>
-        <button className="register-form__button" type="submit" disabled={!isValid}>
-          {buttonText}
-        </button>
+        <div className="register-form__container">
+          <span className="register-form__message-error"></span>
+          <button className="register-form__button" type="submit" disabled={!isValid}>
+            {buttonText}
+          </button>
+        </div>
       </form>
       <div className="register-form__sign-in-container">
         <span className="register-form__sign-up">

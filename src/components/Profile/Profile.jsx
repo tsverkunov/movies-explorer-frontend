@@ -11,7 +11,8 @@ const owner = {
 function Profile({ isMenuActive, onCloseMenu, onOpenMenu }) {
   const { values, handleChange, errors, isValid, resetForm } = useFormWithValidation();
 
-  const onSubmit = () => {
+  const onSubmit = (e) => {
+    e.preventDefault()
     resetForm()
   }
 

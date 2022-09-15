@@ -1,5 +1,5 @@
 import React from 'react';
-import './ModalError.css';
+import './ModalInfo.css';
 
 function PopupWithForm({
                          title,

@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import { useCallback, useState } from 'react';
 
 export function useFormWithValidation() {
 
@@ -15,7 +15,10 @@ export function useFormWithValidation() {
   };
 
   const resetForm = useCallback(
-    (newValues = {}, newErrors = {}, newIsValid = true) => {
+    (newValues = { name: '', email: '', password: '' },
+     newErrors = { name: '', email: '', password: '' },
+     newIsValid = false
+    ) => {
       setValues(newValues);
       setErrors(newErrors);
       setIsValid(newIsValid);
