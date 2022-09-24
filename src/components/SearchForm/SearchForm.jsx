@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './SearchForm.css';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
+import { useLocation } from 'react-router-dom';
 
-function SearchForm({ onGetMovies, isChecked, onChangeCheckbox }) {
+function SearchForm({ onGetMovies, searchWord, shortMovie, setShortMovie }) {
+  const { pathname } = useLocation();
+
   const [values, setValues] = useState({ search: '' });
   const [errors, setErrors] = useState({ search: '' });
   const [isValid, setIsValid] = useState(false);
@@ -15,18 +18,29 @@ function SearchForm({ onGetMovies, isChecked, onChangeCheckbox }) {
     setIsValid(target.closest('form').checkValidity());
   };
 
+  useEffect(() => {
+    if (pathname === '/movies') {
+      setValues({ search: searchWord });
+    }
+  }, []);
+
   const onSubmit = (e) => {
     e.preventDefault();
     onGetMovies(values);
   };
 
   return (
-    <form className="searchForm" onSubmit={onSubmit}>
+    <form
+      className="searchForm"
+      onSubmit={onSubmit}
+      name="search-form"
+      noValidate
+    >
       <fieldset className="searchForm__fieldset">
         <div className="searchForm__container">
           <input
             name="search"
-            type="text"
+            type="search"
             onChange={handleChange}
             value={values.search}
             placeholder="Фильм"
@@ -44,7 +58,7 @@ function SearchForm({ onGetMovies, isChecked, onChangeCheckbox }) {
         </div>
         <span className="searchForm__error">{errors.search}</span>
       </fieldset>
-      <FilterCheckbox isChecked={isChecked} onChangeCheckbox={onChangeCheckbox}/>
+      <FilterCheckbox shortMovie={shortMovie} setShortMovie={setShortMovie}/>
     </form>
   );
 }

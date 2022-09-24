@@ -1,23 +1,23 @@
 import React from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 import './Header.css';
 import Menu from '../Menu/Menu';
 import logo from '../../images/logo.svg';
 import menuButton from '../../images/menu_burger_button.svg';
 
-function Header({ main, onOpenMenu, isMenuActive, onCloseMenu }) {
+function Header({ loggedIn, onOpenMenu, isMenuActive, onCloseMenu }) {
+  const { pathname } = useLocation()
+  const main = pathname === '/'
+  const hide = pathname === '/sign-up' || pathname === '/sign-in'
   return (
-    <header className={`header ${main && 'header_main'}`}>
+    <header className={`header ${main && 'header_main'} ${hide && 'header_hide'}`}>
       <Link to="/">
         <img className="header__logo" src={logo} alt="Логотип"/>
       </Link>
 
-      {main
-        ? <div className="header__button-container">
-          <Link className="header__register" to="/sign-up">Регистрация</Link>
-          <Link className="header__button-login" to="/sign-in">Войти</Link>
-        </div>
-        : <>
+      {loggedIn
+        ?
+        <>
           <img src={menuButton} className="header__menu-button" alt="Меню" onClick={onOpenMenu}></img>
           <Menu onCloseMenu={onCloseMenu} isMenuActive={isMenuActive}/>
           <div className="header__container">
@@ -30,6 +30,11 @@ function Header({ main, onOpenMenu, isMenuActive, onCloseMenu }) {
           </div>
           <Link className="header__account" to="/profile">Аккаунт</Link>
         </>
+        :
+        <div className="header__button-container">
+          <Link className="header__register" to="/sign-up">Регистрация</Link>
+          <Link className="header__button-login" to="/sign-in">Войти</Link>
+        </div>
       }
 
 

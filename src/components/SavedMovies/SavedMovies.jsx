@@ -2,41 +2,31 @@ import React from 'react';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import SearchForm from '../SearchForm/SearchForm';
 import './SavedMovies.css';
-import Header from '../Header/Header';
-import Footer from '../Footer/Footer';
 
 function SavedMovies({
-                       isMenuActive,
-                       onCloseMenu,
-                       onOpenMenu,
-                       cards,
+                       movies,
                        isFetching,
                        onGetMovies,
-                       isChecked,
-                       onChangeCheckbox,
+                       shortMovie,
+                       setShortMovie,
                        removeMovies,
                        savedMoviesList,
-}) {
+                     }) {
   return (
     <div className="savedMovies">
-      <Header
-        onOpenMenu={onOpenMenu}
-        onCloseMenu={onCloseMenu}
-        isMenuActive={isMenuActive}
-      />
       <SearchForm
         onGetMovies={onGetMovies}
-        onChangeCheckbox={onChangeCheckbox}
-        isChecked={isChecked}
+        setShortMovie={setShortMovie}
+        shortMovie={shortMovie}
+        savedMoviesList={savedMoviesList}
       />
       <MoviesCardList
         savedMovies={true}
-        cards={cards}
+        movies={movies}
         isFetching={isFetching}
         removeMovies={removeMovies}
         savedMoviesList={savedMoviesList}
       />
-      <Footer/>
     </div>
   );
 }

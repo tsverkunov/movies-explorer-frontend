@@ -24,17 +24,6 @@
     line-height: 1.3;
 }
 
-/*.moviesCard__like-image {*/
-/*    width: 14px;*/
-/*    height: 12px;*/
-/*    cursor: pointer;*/
-/*    transition: opacity .3s;*/
-/*}*/
-
-/*.moviesCard__like-image:hover {*/
-/*    opacity: .6;*/
-/*}*/
-
 .moviesCard__button {
     border: none;
     width: 30px;

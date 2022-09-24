@@ -3,12 +3,12 @@ import '../Register/Register.css';
 import RegisterForm from '../RegisterForm/RegisterForm';
 import { useFormWithValidation } from '../../utils/hooks/useFormWithValidation';
 
-function Login() {
-  const {values, handleChange, errors, isValid, resetForm} = useFormWithValidation()
+function Login({ onLogin }) {
+  const { values, handleChange, errors, isValid, resetForm } = useFormWithValidation();
 
   const onSubmit = (e) => {
     e.preventDefault();
-
+    onLogin(values);
     resetForm();
   };
 

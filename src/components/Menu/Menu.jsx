@@ -4,6 +4,7 @@ import './Menu.css';
 import closeButton from '../../images/menu_close_button.svg';
 
 function Menu({ isMenuActive, onCloseMenu }) {
+
   return (
     <div className={`menu ${isMenuActive && 'menu_active'}`}>
       <div className="menu__container">

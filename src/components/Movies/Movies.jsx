@@ -3,39 +3,31 @@ import SearchForm from '../SearchForm/SearchForm';
 import './Movies.css';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import MoreButton from '../MoreButton/MoreButton';
-import Header from '../Header/Header';
-import Footer from '../Footer/Footer';
 
 function Movies({
-  onGetMovies,
-  cards,
-  isFetching,
-  onChangeCheckbox,
-  isChecked,
-  isMenuActive,
-  onCloseMenu,
-  onOpenMenu,
-  error,
-  addCards,
-  hiddenButton,
-  saveMovies,
-  removeMovies,
-  savedMoviesList,
+                  onGetMovies,
+                  movies,
+                  isFetching,
+                  shortMovie,
+                  setShortMovie,
+                  error,
+                  addCards,
+                  hiddenButton,
+                  saveMovies,
+                  removeMovies,
+                  savedMoviesList,
+                  searchWord,
                 }) {
   return (
     <div className="movies">
-      <Header
-        onOpenMenu={onOpenMenu}
-        onCloseMenu={onCloseMenu}
-        isMenuActive={isMenuActive}
-      />
       <SearchForm
         onGetMovies={onGetMovies}
-        onChangeCheckbox={onChangeCheckbox}
-        isChecked={isChecked}
+        setShortMovie={setShortMovie}
+        shortMovie={shortMovie}
+        searchWord={searchWord}
       />
       <MoviesCardList
-        cards={cards}
+        movies={movies}
         isFetching={isFetching}
         error={error}
         saveMovies={saveMovies}
@@ -43,10 +35,10 @@ function Movies({
         removeMovies={removeMovies}
       />
       <MoreButton
+        error={error}
         addCards={addCards}
         hiddenButton={hiddenButton}
       />
-      <Footer/>
     </div>
   );
 }

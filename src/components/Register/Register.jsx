@@ -1,14 +1,14 @@
 import React from 'react';
 import './Register.css';
 import RegisterForm from '../RegisterForm/RegisterForm';
-import {useFormWithValidation} from '../../utils/hooks/useFormWithValidation';
+import { useFormWithValidation } from '../../utils/hooks/useFormWithValidation';
 
-function Register({onRegister}) {
-  const {values, handleChange, errors, isValid, resetForm} = useFormWithValidation();
+function Register({ onRegister }) {
+  const { values, handleChange, errors, isValid, resetForm } = useFormWithValidation();
 
   const onSubmit = (e) => {
     e.preventDefault();
-    onRegister(values)
+    onRegister(values);
     resetForm();
   };
 

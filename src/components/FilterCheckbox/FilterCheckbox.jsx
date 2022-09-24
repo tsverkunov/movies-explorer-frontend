@@ -1,6 +1,13 @@
 import './FilterCheckbox.css';
 
-function FilterCheckbox({isChecked, onChangeCheckbox}) {
+function FilterCheckbox({ shortMovie, setShortMovie }) {
+
+  const onChangeCheckbox = (e) => {
+    console.log(e.target.checked)
+    e.target.checked
+      ? setShortMovie(true)
+      : setShortMovie(false);
+  };
 
   return (
     <fieldset className="filter__fieldset-checkbox">
@@ -10,7 +17,7 @@ function FilterCheckbox({isChecked, onChangeCheckbox}) {
           type="checkbox"
           className="filter__checkbox"
           name="checkbox"
-          checked={isChecked}
+          checked={shortMovie}
           onChange={onChangeCheckbox}
         />
         <span className="filter__checkbox-visible"></span>

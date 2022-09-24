@@ -1,29 +1,37 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import './Profile.css';
-import { Link } from 'react-router-dom';
-import Header from '../Header/Header';
+import { useLocation } from 'react-router-dom';
 import { useFormWithValidation } from '../../utils/hooks/useFormWithValidation';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
-const owner = {
-  name: 'Иван',
-};
+function Profile({ updateProfile, onSignOut }) {
+  const { pathname } = useLocation();
+  const { values, handleChange, errors, isValid, setValues, setIsValid } = useFormWithValidation();
+  const currentUser = useContext(CurrentUserContext);
 
-function Profile({ isMenuActive, onCloseMenu, onOpenMenu }) {
-  const { values, handleChange, errors, isValid, resetForm } = useFormWithValidation();
+  useEffect(() => {
+    if (pathname === '/profile') {
+      setValues({
+        name: currentUser.name,
+        email: currentUser.email,
+      });
+    }
+  }, [pathname]);
+
+  useEffect(() => {
+    if (currentUser.name === values.name && currentUser.email === values.email) {
+      setIsValid(false);
+    }
+  }, [values]);
 
   const onSubmit = (e) => {
-    e.preventDefault()
-    resetForm()
-  }
+    e.preventDefault();
+    updateProfile(values);
+  };
 
   return (
     <section className="profile">
-      <Header
-        onOpenMenu={onOpenMenu}
-        onCloseMenu={onCloseMenu}
-        isMenuActive={isMenuActive}
-      />
-      <h2 className="profile__greetings">{`Привет, ${owner.name}!`}</h2>
+      <h2 className="profile__greetings">{`Привет, ${currentUser.name}!`}</h2>
       <form className="profile__form" onSubmit={onSubmit}>
         <fieldset className="profile__fieldset">
           <label className="profile__label" htmlFor="name">Имя</label>
@@ -44,7 +52,7 @@ function Profile({ isMenuActive, onCloseMenu, onOpenMenu }) {
         <fieldset className="profile__fieldset">
           <label className="profile__label" htmlFor="email">E-mail</label>
           <input
-            type="text"
+            type="email"
             className="profile__input"
             name="email"
             id="email"
@@ -55,9 +63,15 @@ function Profile({ isMenuActive, onCloseMenu, onOpenMenu }) {
         </fieldset>
         <span className="profile__error">{errors.email}</span>
         <div className="profile__helper"></div>
-        <button type="submit" className="profile__editing-button" disabled={!isValid}>Редактировать</button>
+        <button
+          type="submit"
+          className="profile__editing-button"
+          disabled={!isValid}
+        >
+          Редактировать
+        </button>
       </form>
-      <Link to="/sign-up" className="profile__sign-out">Выйти из аккаунта</Link>
+      <button type="button" className="profile__sign-out" onClick={onSignOut}>Выйти из аккаунта</button>
     </section>
   );
 }

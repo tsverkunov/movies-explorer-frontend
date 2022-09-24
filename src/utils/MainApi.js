@@ -1,4 +1,5 @@
-const MAIN_API_URL = 'https://api.it.dip.students.nomoredomains.xyz';
+// const MAIN_API_URL = 'https://api.it.dip.students.nomoredomains.xyz';
+const MAIN_API_URL = 'http://localhost:3000';
 
 const checkRequest = (res) => {
   if (res.ok) {
@@ -15,63 +16,106 @@ export const getSavedMovies = () => {
     method: 'GET',
     headers: {
       'Accept': 'application/json',
-      'Content-Type': 'application/json',
-      // 'Authorization': `Bearer ${token}`,
     },
-    // authorization: 'e0347de3-3f3e-4b66-951f-031aa57f2a82',
     credentials: 'include',
   })
     .then(checkRequest);
 };
 
-export const postMovies = (card) => {
+export const postMovies = ({
+                             movieId,
+                             nameRU,
+                             nameEN,
+                             director,
+                             country,
+                             year,
+                             duration,
+                             description,
+                             trailerLink,
+                             thumbnail,
+                             image,
+                           }) => {
   return fetch(`${MAIN_API_URL}/movies`, {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
-      // 'Authorization': `Bearer ${token}`,
     },
-    body: card,
-    // authorization: 'e0347de3-3f3e-4b66-951f-031aa57f2a82',
+    body: JSON.stringify({
+        movieId,
+        nameRU,
+        nameEN,
+        director,
+        country,
+        year,
+        duration,
+        description,
+        trailerLink,
+        thumbnail,
+        image,
+      },
+    ),
     credentials: 'include',
   })
     .then(checkRequest);
 };
+
 export const deleteMovie = (id) => {
   return fetch(`${MAIN_API_URL}/movies/${id}`, {
     method: 'DELETE',
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
-      // 'Authorization': `Bearer ${token}`,
     },
-    // authorization: 'e0347de3-3f3e-4b66-951f-031aa57f2a82',
     credentials: 'include',
   })
     .then(checkRequest);
 };
 
-export const register = ({name, email, password}) => {
+export const register = ({ name, email, password }) => {
   return fetch(`${MAIN_API_URL}/signup`, {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({name, email, password}),
+    body: JSON.stringify({ name, email, password }),
   })
     .then(checkRequest);
 };
 
-export const authorized = ({email, password}) => {
+export const authorized = ({ email, password }) => {
   return fetch(`${MAIN_API_URL}/signin`, {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({email, password}),
+    body: JSON.stringify({ email, password }),
+    credentials: 'include',
+  })
+    .then(checkRequest);
+};
+
+export const updateProfile = ({ name, email }) => {
+  return fetch(`${MAIN_API_URL}/users/me`, {
+    method: 'PATCH',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ name, email }),
+    credentials: 'include',
+  })
+    .then(checkRequest);
+};
+
+export const getProfile = () => {
+  return fetch(`${MAIN_API_URL}/users/me`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
     credentials: 'include',
   })
     .then(checkRequest);

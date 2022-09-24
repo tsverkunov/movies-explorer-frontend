@@ -6,6 +6,10 @@
     line-height: 15px;
 }
 
+.footer_hide {
+    display: none;
+}
+
 .footer__description {
     color: #8B8B8B;
 }

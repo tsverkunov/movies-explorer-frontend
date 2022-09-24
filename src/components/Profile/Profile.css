@@ -3,7 +3,7 @@
     flex-direction: column;
     text-align: center;
     padding: 0 30px;
-    min-height: 100vh;
+    min-height: calc(100vh - 80px)
 }
 
 .profile__greetings {
@@ -44,6 +44,9 @@
     border: none;
     color: #fff;
     text-align: right;
+}
+.profile__input::placeholder {
+    color: #fff;
 }
 
 .profile__error {
@@ -90,7 +93,9 @@
 }
 
 .profile__sign-out {
-    text-decoration: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
     font-weight: 500;
     font-size: 12px;
     line-height: 1.2;
@@ -108,8 +113,4 @@
     .profile__form {
         max-width: 410px;
     }
-}
-
-@media screen and (min-width: 1024px) {
-
 }
