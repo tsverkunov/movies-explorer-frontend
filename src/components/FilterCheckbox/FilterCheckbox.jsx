@@ -3,7 +3,6 @@ import './FilterCheckbox.css';
 function FilterCheckbox({ shortMovie, setShortMovie }) {
 
   const onChangeCheckbox = (e) => {
-    console.log(e.target.checked)
     e.target.checked
       ? setShortMovie(true)
       : setShortMovie(false);

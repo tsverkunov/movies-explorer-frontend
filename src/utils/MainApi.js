@@ -1,5 +1,4 @@
-// const MAIN_API_URL = 'https://api.it.dip.students.nomoredomains.xyz';
-const MAIN_API_URL = 'http://localhost:3000';
+const MAIN_API_URL = 'https://api.it.dip.students.nomoredomains.xyz';
 
 const checkRequest = (res) => {
   if (res.ok) {
