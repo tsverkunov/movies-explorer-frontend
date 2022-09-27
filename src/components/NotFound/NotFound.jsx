@@ -10,7 +10,7 @@ function NotFound() {
       <h2 className="notFound__title">404</h2>
       <p className="notFound__description">Страница не найдена</p>
       <button
-        onClick={() => history.go(-1)}
+        onClick={history.goBack}
         className="notFound__back-link"
         type="button"
       >

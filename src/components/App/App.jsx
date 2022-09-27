@@ -79,10 +79,12 @@ const App = () => {
           setCurrentUser(userData.user);
           setAllMovies(validateCard(movies));
         })
-        .catch(console.log);
+        .catch(error => {
+          setError(error.message);
+          setIsModalErrorOpen(true);
+        });
     }
   }, [loggedIn]);
-
 
   useEffect(() => {
     if (pathname === '/saved-movies') {
@@ -218,6 +220,7 @@ const App = () => {
         setIsModalErrorOpen(true);
       })
       .catch(error => {
+        console.log(error);
         setError(error.message);
         setIsModalErrorOpen(true);
       });

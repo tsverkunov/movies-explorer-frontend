@@ -7,7 +7,7 @@ const checkRequest = (res) => {
   }
   return res.json()
     .then((data) => {
-      throw new Error(data.error);
+      throw new Error(data.message);
     });
 };
 
@@ -125,11 +125,10 @@ export const logout = (email) => {
   return fetch(`${MAIN_API_URL}/signout`, {
     method: 'POST',
     headers: {
-      'Accept': 'application/json',
       'Content-Type': 'application/json',
     },
     credentials: 'include',
-    body: JSON.stringify({ email })
+    body: JSON.stringify({ email }),
   })
     .then(checkRequest);
 };
