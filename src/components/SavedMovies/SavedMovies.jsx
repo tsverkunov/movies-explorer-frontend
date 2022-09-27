@@ -5,8 +5,9 @@ import './SavedMovies.css';
 
 function SavedMovies({
                        movies,
+                       onFilterMovies,
+
                        isFetching,
-                       onGetMovies,
                        shortMovie,
                        setShortMovie,
                        removeMovies,
@@ -15,7 +16,7 @@ function SavedMovies({
   return (
     <div className="savedMovies">
       <SearchForm
-        onGetMovies={onGetMovies}
+        onFilterMovies={onFilterMovies}
         setShortMovie={setShortMovie}
         shortMovie={shortMovie}
         savedMoviesList={savedMoviesList}

@@ -5,7 +5,7 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import MoreButton from '../MoreButton/MoreButton';
 
 function Movies({
-                  onGetMovies,
+                  onFilterMovies,
                   movies,
                   isFetching,
                   shortMovie,
@@ -17,14 +17,18 @@ function Movies({
                   removeMovies,
                   savedMoviesList,
                   searchWord,
+                  savedSearchWord,
+                  savedShortMovie,
                 }) {
   return (
     <div className="movies">
       <SearchForm
-        onGetMovies={onGetMovies}
+        onFilterMovies={onFilterMovies}
         setShortMovie={setShortMovie}
         shortMovie={shortMovie}
         searchWord={searchWord}
+        savedSearchWord={savedSearchWord}
+        savedShortMovie={savedShortMovie}
       />
       <MoviesCardList
         movies={movies}

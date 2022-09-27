@@ -6,11 +6,16 @@ import logo from '../../images/logo.svg';
 import menuButton from '../../images/menu_burger_button.svg';
 
 function Header({ loggedIn, onOpenMenu, isMenuActive, onCloseMenu }) {
-  const { pathname } = useLocation()
-  const main = pathname === '/'
-  const hide = pathname === '/sign-up' || pathname === '/sign-in'
+  const { pathname } = useLocation();
+  const main = pathname === '/';
+  const show = pathname === !'/sign-up'
+    || pathname === !'/sign-in'
+    || pathname === '/'
+    || pathname === '/movies'
+    || pathname === '/saved-movies'
+    || pathname === '/profile';
   return (
-    <header className={`header ${main && 'header_main'} ${hide && 'header_hide'}`}>
+    <header className={`header ${main && 'header_main'} ${show && 'header_show'}`}>
       <Link to="/">
         <img className="header__logo" src={logo} alt="Логотип"/>
       </Link>

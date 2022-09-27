@@ -1,5 +1,5 @@
-const MAIN_API_URL = 'https://api.it.dip.students.nomoredomains.xyz';
-// const MAIN_API_URL = 'http://localhost:3000';
+// const MAIN_API_URL = 'https://api.it.dip.students.nomoredomains.xyz';
+const MAIN_API_URL = 'http://localhost:3000';
 
 const checkRequest = (res) => {
   if (res.ok) {
@@ -114,6 +114,18 @@ export const getProfile = () => {
   return fetch(`${MAIN_API_URL}/users/me`, {
     method: 'GET',
     headers: {
+      'Content-Type': 'application/json',
+    },
+    credentials: 'include',
+  })
+    .then(checkRequest);
+};
+
+export const logout = () => {
+  return fetch(`${MAIN_API_URL}/signout`, {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
       'Content-Type': 'application/json',
     },
     credentials: 'include',

@@ -1,52 +1,56 @@
 import { useEffect, useState } from 'react';
-import * as MoviesApi from '../MoviesApi';
+import useLocalStorage from './useLocalStorage';
+import { SHORT_FILM } from '../constants/config';
 
 const useMovieSearch = () => {
   const [allMovies, setAllMovies] = useState([]);
-  const [filterMovies, setFilterMovies] = useState([]);
   const [savedMoviesList, setSavedMoviesList] = useState([]);
   const [showedMovies, setShowedMovies] = useState([]);
   const [shortMovie, setShortMovie] = useState(false);
   const [searchWord, setSearchWord] = useState('');
   const [isFetching, setIsFetching] = useState(false);
   const [error, setError] = useState('');
+  const [isModalErrorOpen, setIsModalErrorOpen] = useState(false);
+  const [savedShortMovie, setSavedShortMovie] = useLocalStorage('shortMovie', '')
+  const [savedSearchWord, setSavedSearchWord] = useLocalStorage('searchWord', '')
+  const [savedAllMovies, setSavedAllMovies] = useLocalStorage('movies', [])
+  const [savedFilteredMovies, setSavedFilteredMovies] = useLocalStorage('filteredMovies', [])
+
+
+  useEffect(() => {
+    setShortMovie(savedShortMovie);
+  }, []);
+
+  useEffect(() =>{
+    setSavedAllMovies(allMovies)
+  }, [allMovies])
 
   const handleFilter = (movies, shortMovie, searchWord) => {
     return movies.filter(movie => {
       if (shortMovie) {
-        return movie.nameRU.toLowerCase().includes(searchWord.toLowerCase()) && movie.duration <= 40;
+        return movie.nameRU.toLowerCase().includes(searchWord.toLowerCase()) && movie.duration <= SHORT_FILM;
       } else {
         return movie.nameRU.toLowerCase().includes(searchWord.toLowerCase());
       }
     });
   };
 
-  useEffect(() => {
-    setFilterMovies(handleFilter(allMovies, shortMovie, searchWord));
-  }, [allMovies]);
-
-  const handleGetMovies = (searchValue) => {
-    setSearchWord(searchValue.search);
-    setIsFetching(true);
-    MoviesApi.getMovies()
-      .then(movies => {
-        setAllMovies(movies);
-      })
-      .catch(err => {
-        setError(err);
-      })
-      .finally(() => setIsFetching(false));
+  const handleFilterMovies = (searchValue) => {
+    setSavedSearchWord(searchValue);
+    setSavedShortMovie(shortMovie)
+    setSearchWord(searchValue)
+    setSavedFilteredMovies(handleFilter(savedAllMovies, shortMovie, searchValue))
   };
 
+
   const handleGetInSaveMovies = (searchValue) => {
-    setShowedMovies(handleFilter(savedMoviesList, shortMovie, searchValue.search));
+    setShowedMovies(handleFilter(savedMoviesList, shortMovie, searchValue));
   };
 
   return {
     allMovies,
     setAllMovies,
-    filterMovies,
-    setFilterMovies,
+    savedFilteredMovies,
     shortMovie,
     setShortMovie,
     searchWord,
@@ -55,12 +59,19 @@ const useMovieSearch = () => {
     setIsFetching,
     error,
     setError,
+    isModalErrorOpen,
+    setIsModalErrorOpen,
     savedMoviesList,
     setSavedMoviesList,
     showedMovies,
     setShowedMovies,
+    savedSearchWord,
+    setSavedSearchWord,
+    savedShortMovie,
+    setSavedShortMovie,
+    setSavedFilteredMovies,
     handleFilter,
-    handleGetMovies,
+    handleFilterMovies,
     handleGetInSaveMovies,
   };
 };

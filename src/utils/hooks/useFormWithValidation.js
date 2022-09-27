@@ -1,10 +1,18 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { EMAIL_REGEXP } from '../constants/config';
 
 export function useFormWithValidation() {
 
   const [values, setValues] = useState({ name: '', email: '', password: '' });
   const [errors, setErrors] = useState({ name: '', email: '', password: '' });
   const [isValid, setIsValid] = useState(false);
+
+  useEffect(() => {
+    if (!EMAIL_REGEXP.test(values.email) && isValid) {
+      setErrors({ ...errors, email: 'Введите правильный email.'})
+      setIsValid(false)
+    }
+  }, [values.email])
 
   const handleChange = (e) => {
     const target = e.target;

@@ -2,6 +2,7 @@ import './App.css';
 import React, { useEffect, useState } from 'react';
 import { Route, Switch, useHistory, useLocation } from 'react-router-dom';
 import * as MainApi from '../../utils/MainApi';
+import * as MoviesApi from '../../utils/MoviesApi';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import Main from '../Main/Main';
 import Footer from '../Footer/Footer';
@@ -15,9 +16,24 @@ import SavedMovies from '../SavedMovies/SavedMovies';
 import ModalError from '../ModalInfo/ModalInfo';
 import ProtectedRout from '../ProtectedRout/ProtectedRout';
 import useMovieSearch from '../../utils/hooks/useMovieSearch';
+import {
+  FOR_FULL_SIZE_COUNT,
+  FOR_LAPTOP_COUNT,
+  FOR_MOBILE_COUNT,
+  FULL_SIZE,
+  FULL_SIZE_COUNT,
+  LAPTOP,
+  LAPTOP_COUNT,
+  MOBILE,
+  MOBILE_COUNT,
+  TABLET,
+  TABLET_COUNT,
+  URL_REGEX,
+} from '../../utils/constants/config';
+import useLocalStorage from '../../utils/hooks/useLocalStorage';
 
 const App = () => {
-  const [isModalErrorOpen, setIsModalErrorOpen] = useState(false);
+
   const [isMobileMenuActive, setIsMobileMenuActive] = useState(false);
   const [movies, setMovies] = useState([]);
   const [loggedIn, setLoggedIn] = useState(false);
@@ -25,13 +41,13 @@ const App = () => {
   const [currentUser, setCurrentUser] = useState({});
   const [count, setCount] = useState(0);
   const [width, setWidth] = useState(window.innerWidth);
-  const history = useHistory();
   const { pathname } = useLocation();
+  const history = useHistory();
+  const [savedPath, setSavedPath] = useLocalStorage('path', '');
 
   const {
     setAllMovies,
-    filterMovies,
-    setFilterMovies,
+    savedFilteredMovies,
     shortMovie,
     setShortMovie,
     searchWord,
@@ -39,23 +55,44 @@ const App = () => {
     isFetching,
     error,
     setError,
+    isModalErrorOpen,
+    setIsModalErrorOpen,
     savedMoviesList,
     setSavedMoviesList,
     showedMovies,
     setShowedMovies,
-    handleGetMovies,
+    savedSearchWord,
+    setSavedSearchWord,
+    setSavedShortMovie,
+    setSavedFilteredMovies,
+    savedShortMovie,
+    handleFilterMovies,
     handleGetInSaveMovies,
   } = useMovieSearch();
 
   useEffect(() => {
+    setSavedPath(pathname);
+  }, [pathname]);
+
+  // useEffect(() => {
+  //   history.push(savedPath);
+  // }, []);
+
+  const validateCard = (movies) => {
+    return movies.filter((movie) => URL_REGEX.test(movie.trailerLink));
+  };
+
+  useEffect(() => {
     if (loggedIn) {
-      MainApi.getProfile()
-        .then((userData) => {
+      Promise.all([MainApi.getProfile(), MoviesApi.getMovies()])
+        .then(([userData, movies]) => {
           setCurrentUser(userData.user);
+          setAllMovies(validateCard(movies));
         })
         .catch(console.log);
     }
   }, [loggedIn]);
+
 
   useEffect(() => {
     if (pathname === '/saved-movies') {
@@ -68,12 +105,6 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    if (loggedIn) {
-      history.push('/movies');
-    }
-  }, [history, loggedIn]);
-
-  useEffect(() => {
     MainApi.getSavedMovies()
       .then(movies => {
         setSavedMoviesList(movies.movies);
@@ -83,14 +114,14 @@ const App = () => {
   }, [loggedIn]);
 
   useEffect(() => {
-    if (width >= 1670) {
-      setCount(16);
-    } else if (1670 > width && width > 768) {
-      setCount(12);
-    } else if (768 >= width && width > 500) {
-      setCount(8);
+    if (width >= FULL_SIZE) {
+      setCount(FULL_SIZE_COUNT);
+    } else if (FULL_SIZE > width && width > LAPTOP) {
+      setCount(LAPTOP_COUNT);
+    } else if (LAPTOP >= width && width > TABLET) {
+      setCount(TABLET_COUNT);
     } else {
-      setCount(5);
+      setCount(MOBILE_COUNT);
     }
   }, [width]);
 
@@ -108,24 +139,27 @@ const App = () => {
   }, [width]);
 
   useEffect(() => {
-    setMovies(filterMovies.slice(0, count));
-  }, [count, filterMovies]);
+    setMovies(savedFilteredMovies.slice(0, count));
+  }, [count, savedFilteredMovies]);
 
   useEffect(() => {
-    if (movies.length === filterMovies.length) {
+    if (movies.length === savedFilteredMovies.length) {
       setHiddenButton(true);
     } else {
       setHiddenButton(false);
     }
-  }, [movies.length, filterMovies.length]);
+  }, [movies.length, savedFilteredMovies.length]);
 
   const handleAddCards = () => {
     let moreCards;
-    if (window.innerWidth >= 320 && window.innerWidth < 1280) {
-      moreCards = filterMovies.slice(movies.length, movies.length + 2);
+    if (window.innerWidth >= MOBILE && window.innerWidth < LAPTOP) {
+      moreCards = savedFilteredMovies.slice(movies.length, movies.length + FOR_MOBILE_COUNT);
     }
-    if (window.innerWidth >= 1280) {
-      moreCards = filterMovies.slice(movies.length, movies.length + 3);
+    if (window.innerWidth >= LAPTOP && window.innerWidth < FULL_SIZE) {
+      moreCards = savedFilteredMovies.slice(movies.length, movies.length + FOR_LAPTOP_COUNT);
+    }
+    if (window.innerWidth >= FULL_SIZE) {
+      moreCards = savedFilteredMovies.slice(movies.length, movies.length + FOR_FULL_SIZE_COUNT);
     }
     setMovies(movies.concat(moreCards));
   };
@@ -165,6 +199,7 @@ const App = () => {
       setLoggedIn(true);
     }
   };
+
   const handleLogin = (formValues) => {
     MainApi.authorized({ email: formValues.email, password: formValues.password })
       .then((res) => {
@@ -181,16 +216,30 @@ const App = () => {
       });
   };
   const signOut = () => {
+    // MainApi.logout()
+    //   .then(() => {
     localStorage.removeItem('jwt');
+    localStorage.removeItem('shortMovie');
+    localStorage.removeItem('searchWord');
+    localStorage.removeItem('movies');
+    localStorage.removeItem('filteredMovies');
     setLoggedIn(false);
     setCurrentUser({});
     setAllMovies([]);
-    setFilterMovies([]);
+    setSavedFilteredMovies([]);
     setMovies([]);
     setSavedMoviesList([]);
     setSearchWord('');
+    setSavedShortMovie('');
+    setSavedSearchWord('');
     setShortMovie(false);
     history.push('/');
+    // })
+    //   .catch(error => {
+    //     setError(error.message);
+    //     setIsModalErrorOpen(true);
+    //   });
+
   };
   const handleRegister = (formValues) => {
     MainApi.register(formValues)
@@ -201,7 +250,6 @@ const App = () => {
         setIsModalErrorOpen(true);
       })
       .catch(error => {
-        console.log('error :', error);
         setError(error.message);
         setIsModalErrorOpen(true);
       });
@@ -218,6 +266,8 @@ const App = () => {
         setIsModalErrorOpen(true);
       });
   };
+
+  console.log(history)
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -245,8 +295,8 @@ const App = () => {
             </Route>
             <ProtectedRout path="/movies" loggedIn={loggedIn}>
               <Movies
-                onGetMovies={handleGetMovies}
                 movies={movies}
+                onFilterMovies={handleFilterMovies}
                 isFetching={isFetching}
                 setShortMovie={setShortMovie}
                 shortMovie={shortMovie}
@@ -257,13 +307,15 @@ const App = () => {
                 removeMovies={handleRemoveMovies}
                 savedMoviesList={savedMoviesList}
                 searchWord={searchWord}
+                savedSearchWord={savedSearchWord}
+                savedShortMovie={savedShortMovie}
               />
             </ProtectedRout>
             <ProtectedRout path="/saved-movies" loggedIn={loggedIn}>
               <SavedMovies
                 movies={showedMovies}
+                onFilterMovies={handleGetInSaveMovies}
                 isFetching={isFetching}
-                onGetMovies={handleGetInSaveMovies}
                 shortMovie={shortMovie}
                 setShortMovie={setShortMovie}
                 removeMovies={handleRemoveMovies}

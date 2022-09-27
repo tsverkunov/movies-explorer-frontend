@@ -1,22 +1,18 @@
 import React, { useContext, useEffect } from 'react';
 import './Profile.css';
-import { useLocation } from 'react-router-dom';
 import { useFormWithValidation } from '../../utils/hooks/useFormWithValidation';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 function Profile({ updateProfile, onSignOut }) {
-  const { pathname } = useLocation();
   const { values, handleChange, errors, isValid, setValues, setIsValid } = useFormWithValidation();
   const currentUser = useContext(CurrentUserContext);
 
   useEffect(() => {
-    if (pathname === '/profile') {
       setValues({
         name: currentUser.name,
         email: currentUser.email,
       });
-    }
-  }, [pathname]);
+  }, []);
 
   useEffect(() => {
     if (currentUser.name === values.name && currentUser.email === values.email) {
@@ -71,7 +67,13 @@ function Profile({ updateProfile, onSignOut }) {
           Редактировать
         </button>
       </form>
-      <button type="button" className="profile__sign-out" onClick={onSignOut}>Выйти из аккаунта</button>
+      <button
+        type="button"
+        className="profile__sign-out"
+        onClick={onSignOut}
+      >
+        Выйти из аккаунта
+      </button>
     </section>
   );
 }

@@ -1,7 +1,6 @@
 import React from 'react';
 import './MoviesCard.css';
-
-const IMAGE_URL = 'https://api.nomoreparties.co';
+import { ADWORDS_URL, IMAGE_URL, URL_REGEX } from '../../utils/constants/config';
 
 function MoviesCard({ movie, savedMovies, saveMovies, removeMovies, savedMoviesList }) {
 
@@ -25,7 +24,7 @@ function MoviesCard({ movie, savedMovies, saveMovies, removeMovies, savedMoviesL
       year: movie.year,
       duration: movie.duration,
       description: movie.description,
-      trailerLink: movie.trailerLink,
+      trailerLink:  URL_REGEX.test(movie.trailerLink) ? movie.trailerLink : ADWORDS_URL,
       thumbnail:
         movie._id
           ? movie.thumbnail

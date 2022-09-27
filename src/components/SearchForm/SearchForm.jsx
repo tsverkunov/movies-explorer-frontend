@@ -3,30 +3,42 @@ import './SearchForm.css';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import { useLocation } from 'react-router-dom';
 
-function SearchForm({ onGetMovies, searchWord, shortMovie, setShortMovie }) {
+function SearchForm({
+                      onFilterMovies,
+                      shortMovie,
+                      setShortMovie,
+                      savedSearchWord,
+                      savedShortMovie,
+}) {
   const { pathname } = useLocation();
-
-  const [values, setValues] = useState({ search: '' });
-  const [errors, setErrors] = useState({ search: '' });
-  const [isValid, setIsValid] = useState(false);
+  const [value, setValue] = useState('')
+  const [error, setError] = useState('');
 
   const handleChange = (e) => {
-    const target = e.target;
-    const { name, value, validationMessage } = target;
-    setValues({ ...values, [name]: value });
-    setErrors({ ...errors, [name]: validationMessage });
-    setIsValid(target.closest('form').checkValidity());
-  };
+    setValue(e.target.value)
+  }
 
   useEffect(() => {
     if (pathname === '/movies') {
-      setValues({ search: searchWord });
+      setValue( savedSearchWord );
+      setShortMovie(savedShortMovie);
     }
   }, []);
 
+  useEffect(() => {
+    if (pathname === '/movies'&& value || pathname === '/saved-movies') {
+      onFilterMovies(value);
+    }
+  }, [shortMovie]);
+
   const onSubmit = (e) => {
     e.preventDefault();
-    onGetMovies(values);
+    if (!value) {
+      setError('Нужно ввести ключевое слово.')
+    } else {
+      setError('')
+      onFilterMovies(value);
+    }
   };
 
   return (
@@ -42,21 +54,18 @@ function SearchForm({ onGetMovies, searchWord, shortMovie, setShortMovie }) {
             name="search"
             type="search"
             onChange={handleChange}
-            value={values.search}
+            value={value}
             placeholder="Фильм"
             className="searchForm__input"
-            minLength="2"
-            maxLength="30"
             required
           />
           <button
             className="searchForm__button"
             aria-label="Искать"
             type="submit"
-            disabled={!isValid}
           ></button>
         </div>
-        <span className="searchForm__error">{errors.search}</span>
+        <span className="searchForm__error">{error}</span>
       </fieldset>
       <FilterCheckbox shortMovie={shortMovie} setShortMovie={setShortMovie}/>
     </form>

@@ -18,6 +18,7 @@ function Menu({ isMenuActive, onCloseMenu }) {
           exact to="/"
           className="menu__link-movies"
           activeClassName="menu__link-movies_selected"
+          onClick={onCloseMenu}
         >
           Главная
         </NavLink>
