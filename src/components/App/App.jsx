@@ -30,7 +30,6 @@ import {
   TABLET_COUNT,
   URL_REGEX,
 } from '../../utils/constants/config';
-import useLocalStorage from '../../utils/hooks/useLocalStorage';
 
 const App = () => {
 
@@ -43,7 +42,6 @@ const App = () => {
   const [width, setWidth] = useState(window.innerWidth);
   const { pathname } = useLocation();
   const history = useHistory();
-  const [savedPath, setSavedPath] = useLocalStorage('path', '');
 
   const {
     setAllMovies,
@@ -70,14 +68,6 @@ const App = () => {
     handleGetInSaveMovies,
   } = useMovieSearch();
 
-  useEffect(() => {
-    setSavedPath(pathname);
-  }, [pathname]);
-
-  // useEffect(() => {
-  //   history.push(savedPath);
-  // }, []);
-
   const validateCard = (movies) => {
     return movies.filter((movie) => URL_REGEX.test(movie.trailerLink));
   };
@@ -101,7 +91,7 @@ const App = () => {
   }, [pathname, savedMoviesList]);
 
   useEffect(() => {
-    checkToken();
+    checkAuth();
   }, []);
 
   useEffect(() => {
@@ -193,67 +183,19 @@ const App = () => {
     setIsMobileMenuActive(false);
   };
 
-  const checkToken = () => {
-    let jwt = localStorage.getItem('jwt');
-    if (jwt) {
+  const checkAuth = () => {
+    if (localStorage.getItem('email')) {
       setLoggedIn(true);
+      checkPath();
     }
   };
 
-  const handleLogin = (formValues) => {
-    MainApi.authorized({ email: formValues.email, password: formValues.password })
-      .then((res) => {
-          if (res.token) {
-            localStorage.setItem('jwt', res.token);
-          }
-          checkToken();
-          history.push('/movies');
-        },
-      )
-      .catch(error => {
-        setError(error.message);
-        setIsModalErrorOpen(true);
-      });
-  };
-  const signOut = () => {
-    // MainApi.logout()
-    //   .then(() => {
-    localStorage.removeItem('jwt');
-    localStorage.removeItem('shortMovie');
-    localStorage.removeItem('searchWord');
-    localStorage.removeItem('movies');
-    localStorage.removeItem('filteredMovies');
-    setLoggedIn(false);
-    setCurrentUser({});
-    setAllMovies([]);
-    setSavedFilteredMovies([]);
-    setMovies([]);
-    setSavedMoviesList([]);
-    setSearchWord('');
-    setSavedShortMovie('');
-    setSavedSearchWord('');
-    setShortMovie(false);
-    history.push('/');
-    // })
-    //   .catch(error => {
-    //     setError(error.message);
-    //     setIsModalErrorOpen(true);
-    //   });
+  function checkPath() {
+    pathname === '/signin' || pathname === '/signup'
+      ? history.push('/')
+      : history.push(pathname);
+  }
 
-  };
-  const handleRegister = (formValues) => {
-    MainApi.register(formValues)
-      .then((data) => {
-        setCurrentUser(data);
-        handleLogin(formValues);
-        setError('Вы успешно зарегистрировались!');
-        setIsModalErrorOpen(true);
-      })
-      .catch(error => {
-        setError(error.message);
-        setIsModalErrorOpen(true);
-      });
-  };
   const updateProfile = (formValues) => {
     MainApi.updateProfile(formValues)
       .then((data) => {
@@ -267,7 +209,60 @@ const App = () => {
       });
   };
 
-  console.log(history)
+  const handleRegister = (formValues) => {
+    MainApi.register(formValues)
+      .then((data) => {
+        setCurrentUser(data);
+        handleLogin(formValues);
+        setError('Вы успешно зарегистрировались!');
+        setIsModalErrorOpen(true);
+      })
+      .catch(error => {
+        setError(error.message);
+        setIsModalErrorOpen(true);
+      });
+  };
+
+  const handleLogin = (formValues) => {
+    MainApi.authorized({
+      email: formValues.email,
+      password: formValues.password,
+    })
+      .then((res) => {
+          if (res.email) {
+            localStorage.setItem('email', res.email);
+          }
+          checkAuth();
+          history.push('/movies');
+        },
+      )
+      .catch(error => {
+        signOut(formValues.email);
+        setError(error.message);
+        setIsModalErrorOpen(true);
+      });
+  };
+  const signOut = (email) => {
+    MainApi.logout(email)
+      .then(() => {
+        localStorage.clear();
+        setLoggedIn(false);
+        setCurrentUser({});
+        setAllMovies([]);
+        setSavedFilteredMovies([]);
+        setMovies([]);
+        setSavedMoviesList([]);
+        setSearchWord('');
+        setSavedShortMovie('');
+        setSavedSearchWord('');
+        setShortMovie(false);
+        history.push('/');
+      })
+      .catch(error => {
+        setError(error.message);
+        setIsModalErrorOpen(true);
+      });
+  };
 
   return (
     <CurrentUserContext.Provider value={currentUser}>

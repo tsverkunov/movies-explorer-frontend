@@ -25,6 +25,10 @@ function Profile({ updateProfile, onSignOut }) {
     updateProfile(values);
   };
 
+  const SignOut = () => {
+    onSignOut(values.email)
+  }
+
   return (
     <section className="profile">
       <h2 className="profile__greetings">{`Привет, ${currentUser.name}!`}</h2>
@@ -70,7 +74,7 @@ function Profile({ updateProfile, onSignOut }) {
       <button
         type="button"
         className="profile__sign-out"
-        onClick={onSignOut}
+        onClick={SignOut}
       >
         Выйти из аккаунта
       </button>

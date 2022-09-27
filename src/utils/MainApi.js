@@ -121,7 +121,7 @@ export const getProfile = () => {
     .then(checkRequest);
 };
 
-export const logout = () => {
+export const logout = (email) => {
   return fetch(`${MAIN_API_URL}/signout`, {
     method: 'POST',
     headers: {
@@ -129,6 +129,7 @@ export const logout = () => {
       'Content-Type': 'application/json',
     },
     credentials: 'include',
+    body: JSON.stringify({ email })
   })
     .then(checkRequest);
 };
