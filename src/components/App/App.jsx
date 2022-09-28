@@ -193,6 +193,9 @@ const App = () => {
   };
 
   function checkPath() {
+    // if (      pathname === '/signin' || pathname === '/signup') {
+    //   history.push('/')
+    // }
     pathname === '/signin' || pathname === '/signup'
       ? history.push('/')
       : history.push(pathname);
