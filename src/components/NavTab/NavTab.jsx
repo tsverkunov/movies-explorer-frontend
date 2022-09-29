@@ -7,7 +7,7 @@ function NavTab({onHiddenRef}) {
   return (
     <div className="navTab">
       <Route>
-        <button className="navTab__button" onClick={onHiddenRef} aria-label="Узнать больше">
+        <button className="navTab__button" onClick={onHiddenRef} aria-label="Узнать больше" type="button">
           Узнать больше
         </button>
       </Route>

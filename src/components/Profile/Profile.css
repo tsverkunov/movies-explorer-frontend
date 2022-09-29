@@ -3,9 +3,7 @@
     flex-direction: column;
     text-align: center;
     padding: 0 30px;
-    min-height: calc(100vh - 75px);
-    /*justify-content: center;*/
-    /*align-content: center;*/
+    min-height: calc(100vh - 80px)
 }
 
 .profile__greetings {
@@ -16,7 +14,7 @@
     line-height: 1.2;
 }
 
-.profile__fields-wrapper {
+.profile__form {
     flex: 1 1 auto;
     display: flex;
     flex-direction: column;
@@ -24,12 +22,38 @@
     width: 100%;
 }
 
-.profile__field-container {
+.profile__fieldset {
+    border: none;
     display: flex;
     justify-content: space-between;
-    font-weight: 500;
+    margin: 0;
+    padding: 0;
+    font-weight: 400;
     font-size: 11px;
     line-height: 13px;
+}
+
+.profile__label {
+    width: 70px;
+    text-align: left;
+}
+
+.profile__input {
+    width: 100%;
+    background: #202020;
+    border: none;
+    color: #fff;
+    text-align: right;
+}
+.profile__input::placeholder {
+    color: #fff;
+}
+
+.profile__error {
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 12px;
+    color: #EE3465;
 }
 
 .profile__line {
@@ -39,8 +63,15 @@
     margin: 16px 0;
 }
 
-.profile_editing {
-    text-decoration: none;
+.profile__helper {
+    flex: 1 1 auto;
+}
+
+.profile__editing-button {
+    justify-self: flex-end;
+    background: #202020;
+    border: none;
+    cursor: pointer;
     color: #fff;
     font-weight: 400;
     font-size: 12px;
@@ -49,33 +80,37 @@
     transition: opacity .3s;
 }
 
-.profile_editing:hover {
+.profile__editing-button:hover {
     opacity: .6;
 }
 
+.profile__editing-button:disabled {
+    color: #8B8B8B;
+}
+
+.profile__editing-button:disabled:hover {
+    opacity: 1;
+}
+
 .profile__sign-out {
-    text-decoration: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
     font-weight: 500;
     font-size: 12px;
     line-height: 1.2;
     color: #EE3465;
     margin: 0 0 40px;
     transition: opacity .3s;
+    align-self: center;
 }
 
 .profile__sign-out:hover {
     opacity: .7;
 }
 
-@media screen and (min-width: 500px){
-    .profile__fields-wrapper {
-        flex: 0 0 auto;
-        padding: 0 0 210px;
+@media screen and (min-width: 500px) {
+    .profile__form {
         max-width: 410px;
-    }
-}
-@media screen and (min-width: 1024px){
-    .profile__fields-wrapper {
-        padding: 0 0 220px;
     }
 }

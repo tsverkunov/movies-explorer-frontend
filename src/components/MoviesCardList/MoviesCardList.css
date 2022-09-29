@@ -1,9 +1,15 @@
 .cardList {
+    flex: 1 1 auto;
     display: grid;
     grid-template-columns: repeat(auto-fit, 300px);
     grid-column-gap: 30px;
     justify-content: center;
     align-items: center;
+    text-align: center;
+}
+
+.cardList__not-found {
+    opacity: .5;
 }
 
 @media screen and (min-width: 500px){
@@ -13,6 +19,6 @@
 }
 @media screen and (min-width: 1024px){
     .cardList {
-        grid-template-columns: repeat(auto-fit, 364px);
+        grid-template-columns: repeat(auto-fit, 360px);
     }
 }

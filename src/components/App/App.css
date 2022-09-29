@@ -11,8 +11,7 @@
   color: #fff;
   height: 100%;
 }
-
-/*.page__container {*/
-/*  max-width: 1280px;*/
-/*  margin: 0 auto;*/
-/*}*/
+.page__container {
+  margin: 0 auto;
+  max-width: 1700px;
+}

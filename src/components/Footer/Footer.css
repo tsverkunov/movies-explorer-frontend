@@ -1,9 +1,14 @@
 .footer {
+    display: none;
     padding: 66px 10px 0;
     text-align: center;
     font-weight: 400;
     font-size: 12px;
     line-height: 15px;
+}
+
+.footer_show {
+    display: block;
 }
 
 .footer__description {

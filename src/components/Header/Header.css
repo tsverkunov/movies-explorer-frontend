@@ -1,9 +1,9 @@
 .header {
-    display: flex;
+    display: none;
     justify-content: space-between;
     align-items: center;
     padding: 18px 14px;
-    background: #202020;
+    background: transparent;
 }
 
 .header__logo {
@@ -50,6 +50,9 @@
 .header_main {
     background: #073042;
 }
+.header_show {
+    display: flex;
+}
 
 .header__container {
     display: none;
@@ -75,7 +78,7 @@
     font-size: 14px;
     line-height: 16px;
     padding: 8px 20px;
-    background: #313131;
+    background: transparent;
     border-radius: 20px;
     text-decoration: none;
     color: #fff;
@@ -105,12 +108,14 @@
         gap: 16px;
     }
 
+    .header__logo {
+        padding-right: 60px;
+    }
+
     .header__account {
         display: block;
     }
-}
 
-@media screen and (min-width: 1024px) {
     .header__menu-button {
         display: none;
     }
