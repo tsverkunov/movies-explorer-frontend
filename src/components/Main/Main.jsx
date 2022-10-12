@@ -7,7 +7,7 @@ import Portfolio from '../Portfolio/Portfolio';
 import { useRef } from 'react';
 
 const Main = () => {
-  const hiddenRef = useRef(null)
+  const hiddenRef = useRef(null);
 
   function handleButtonClick() {
     hiddenRef.current.scrollIntoView({ block: 'start', behavior: 'smooth' });

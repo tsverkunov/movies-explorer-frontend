@@ -1,8 +1,15 @@
+.promo__wrap{
+    background: #073042;
+
+
+}
+
 .promo__container {
     display: flex;
     flex-direction: column;
     min-height: calc(100vh - 75px);
-    background: #073042;
+    max-width: 1700px;
+    margin: 0 auto;
 }
 
 .promo {
@@ -52,6 +59,7 @@
         justify-content: space-between;
         text-align: left;
         padding: 75px 70px 0;
+
     }
 
     .promo__image {
