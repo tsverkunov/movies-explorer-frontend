@@ -1,6 +1,6 @@
 import './App.css';
 import React, { useEffect, useState } from 'react';
-import { Route, Switch, useHistory, useLocation } from 'react-router-dom';
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import * as MainApi from '../../utils/MainApi';
 import * as MoviesApi from '../../utils/MoviesApi';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
@@ -41,7 +41,7 @@ const App = () => {
   const [count, setCount] = useState(0);
   const [width, setWidth] = useState(window.innerWidth);
   const { pathname } = useLocation();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const {
     setAllMovies,
@@ -73,11 +73,11 @@ const App = () => {
       .then((user) => {
         setCurrentUser(user.user);
         setLoggedIn(true);
-        checkPath()
+        checkPath();
       })
       .catch(() => {
         setLoggedIn(false);
-        localStorage.clear()
+        localStorage.clear();
       });
   }, []);
 
@@ -162,6 +162,7 @@ const App = () => {
         .catch(console.log);
     }
   };
+
   const handleRemoveMovies = (card) => {
     if (card._id) {
       MainApi.deleteMovie(card._id)
@@ -184,8 +185,8 @@ const App = () => {
 
   function checkPath() {
     pathname === '/signin' || pathname === '/signup'
-      ? history.push('/')
-      : history.push(pathname);
+      ? navigate('/')
+      : navigate(pathname);
   }
 
   const updateProfile = (formValues) => {
@@ -223,7 +224,7 @@ const App = () => {
     })
       .then(() => {
           setLoggedIn(true);
-          history.push('/movies');
+          navigate('/movies');
         },
       )
       .catch(error => {
@@ -246,7 +247,7 @@ const App = () => {
         setSavedShortMovie('');
         setSavedSearchWord('');
         setShortMovie(false);
-        history.push('/');
+        navigate('/');
       })
       .catch(error => {
         setError(error.message);
@@ -264,63 +265,53 @@ const App = () => {
             onCloseMenu={closeMobileMenu}
             isMenuActive={isMobileMenuActive}
           />
-          <Switch>
-            <Route exact path="/">
-              <Main/>
+          <Routes>
+            <Route exact path="/" element={<Main/>}/>
+            <Route path="/sign-up" element={<Register onRegister={handleRegister}/>}/>
+            <Route path="/sign-in" element={<Login onLogin={handleLogin}/>}/>
+            <Route element={<ProtectedRout loggedIn={loggedIn}/>}>
+              <Route path="/movies" element={
+                <Movies
+                  movies={movies}
+                  onFilterMovies={handleFilterMovies}
+                  isFetching={isFetching}
+                  setShortMovie={setShortMovie}
+                  shortMovie={shortMovie}
+                  error={error}
+                  addCards={handleAddCards}
+                  hiddenButton={hiddenButton}
+                  saveMovies={handleSaveMovies}
+                  removeMovies={handleRemoveMovies}
+                  savedMoviesList={savedMoviesList}
+                  searchWord={searchWord}
+                  savedSearchWord={savedSearchWord}
+                  savedShortMovie={savedShortMovie}
+                />
+              }/>
+              <Route path="/saved-movies" element={
+                <SavedMovies
+                  movies={showedMovies}
+                  onFilterMovies={handleGetInSaveMovies}
+                  isFetching={isFetching}
+                  shortMovie={shortMovie}
+                  setShortMovie={setShortMovie}
+                  removeMovies={handleRemoveMovies}
+                  savedMoviesList={savedMoviesList}
+                />
+              }/>
+              <Route path="/profile" element={
+                <Profile
+                  onOpenMenu={openMobileMenu}
+                  onCloseMenu={closeMobileMenu}
+                  isMenuActive={isMobileMenuActive}
+                  updateProfile={updateProfile}
+                  onSignOut={signOut}
+                  loggedIn={loggedIn}
+                />
+              }/>
             </Route>
-            <Route path="/sign-up">
-              <Register
-                onRegister={handleRegister}
-              />
-            </Route>
-            <Route path="/sign-in">
-              <Login
-                onLogin={handleLogin}
-              />
-            </Route>
-            <ProtectedRout path="/movies" loggedIn={loggedIn}>
-              <Movies
-                movies={movies}
-                onFilterMovies={handleFilterMovies}
-                isFetching={isFetching}
-                setShortMovie={setShortMovie}
-                shortMovie={shortMovie}
-                error={error}
-                addCards={handleAddCards}
-                hiddenButton={hiddenButton}
-                saveMovies={handleSaveMovies}
-                removeMovies={handleRemoveMovies}
-                savedMoviesList={savedMoviesList}
-                searchWord={searchWord}
-                savedSearchWord={savedSearchWord}
-                savedShortMovie={savedShortMovie}
-              />
-            </ProtectedRout>
-            <ProtectedRout path="/saved-movies" loggedIn={loggedIn}>
-              <SavedMovies
-                movies={showedMovies}
-                onFilterMovies={handleGetInSaveMovies}
-                isFetching={isFetching}
-                shortMovie={shortMovie}
-                setShortMovie={setShortMovie}
-                removeMovies={handleRemoveMovies}
-                savedMoviesList={savedMoviesList}
-              />
-            </ProtectedRout>
-            <ProtectedRout path="/profile" loggedIn={loggedIn}>
-              <Profile
-                onOpenMenu={openMobileMenu}
-                onCloseMenu={closeMobileMenu}
-                isMenuActive={isMobileMenuActive}
-                updateProfile={updateProfile}
-                onSignOut={signOut}
-                loggedIn={loggedIn}
-              />
-            </ProtectedRout>
-            <Route path="*">
-              <NotFound/>
-            </Route>
-          </Switch>
+            <Route path="*" element={<NotFound/>}/>
+          </Routes>
           <Footer/>
         </div>
         <ModalError
@@ -330,7 +321,8 @@ const App = () => {
         />
       </div>
     </CurrentUserContext.Provider>
-  );
+  )
+    ;
 };
 
 export default App;
