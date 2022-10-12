@@ -1,14 +1,26 @@
 .header {
-    display: none;
-    justify-content: space-between;
-    align-items: center;
     padding: 18px 14px;
     background: transparent;
 }
 
+.header__wrap {
+    margin: 0 auto;
+    max-width: 1700px;
+    display: none;
+    justify-content: space-between;
+    align-items: center;
+    background: transparent;
+}
+
+.header__logo-container {
+    width: 100px;
+}
+
 .header__logo {
-    width: 38px;
-    height: 38px;
+    padding: 0;
+    margin: 0;
+    width: 40px;
+    height: 40px;
 }
 
 .header__button-container {
@@ -50,6 +62,7 @@
 .header_main {
     background: #073042;
 }
+
 .header_show {
     display: flex;
 }
@@ -77,11 +90,13 @@
     font-weight: 500;
     font-size: 14px;
     line-height: 16px;
-    padding: 8px 20px;
+    /*padding: 8px 20px;*/
     background: transparent;
     border-radius: 20px;
     text-decoration: none;
     color: #fff;
+    width: 100px;
+    text-align: right;
 }
 
 @media screen and (min-width: 500px) {
@@ -100,7 +115,12 @@
 
 @media screen and (min-width: 1024px) {
     .header {
-        padding: 18px 70px;
+        padding: 18px 0;
+    }
+
+    .header__wrap {
+        box-sizing: border-box;
+        padding: 0 70px;
     }
 
     .header__container {
@@ -108,10 +128,9 @@
         gap: 16px;
     }
 
-    .header__logo {
-        padding-right: 60px;
-    }
-
+    /*.header__logo {*/
+    /*    margin-right: 60px;*/
+    /*}*/
     .header__account {
         display: block;
     }

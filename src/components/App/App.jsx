@@ -68,20 +68,30 @@ const App = () => {
     handleGetInSaveMovies,
   } = useMovieSearch();
 
+  useEffect(() => {
+    MainApi.getProfile()
+      .then((user) => {
+        setCurrentUser(user.user);
+        setLoggedIn(true);
+        checkPath()
+      })
+      .catch(() => {
+        setLoggedIn(false);
+        localStorage.clear()
+      });
+  }, []);
+
   const validateCard = (movies) => {
     return movies.filter((movie) => URL_REGEX.test(movie.trailerLink));
   };
 
   useEffect(() => {
     if (loggedIn) {
-      Promise.all([MainApi.getProfile(), MoviesApi.getMovies()])
-        .then(([userData, movies]) => {
-          setCurrentUser(userData.user);
+      Promise.all([MoviesApi.getMovies(), MainApi.getSavedMovies()])
+        .then(([movies, savedMovies]) => {
           setAllMovies(validateCard(movies));
-        })
-        .catch(error => {
-          setError(error.message);
-          setIsModalErrorOpen(true);
+          setSavedMoviesList(savedMovies.movies);
+          setShowedMovies(savedMoviesList);
         });
     }
   }, [loggedIn]);
@@ -91,19 +101,6 @@ const App = () => {
       setShowedMovies(savedMoviesList);
     }
   }, [pathname, savedMoviesList]);
-
-  useEffect(() => {
-    checkAuth();
-  }, []);
-
-  useEffect(() => {
-    MainApi.getSavedMovies()
-      .then(movies => {
-        setSavedMoviesList(movies.movies);
-        setShowedMovies(savedMoviesList);
-      })
-      .catch(console.log);
-  }, [loggedIn]);
 
   useEffect(() => {
     if (width >= FULL_SIZE) {
@@ -185,17 +182,7 @@ const App = () => {
     setIsMobileMenuActive(false);
   };
 
-  const checkAuth = () => {
-    if (localStorage.getItem('email')) {
-      setLoggedIn(true);
-      checkPath();
-    }
-  };
-
   function checkPath() {
-    // if (      pathname === '/signin' || pathname === '/signup') {
-    //   history.push('/')
-    // }
     pathname === '/signin' || pathname === '/signup'
       ? history.push('/')
       : history.push(pathname);
@@ -234,11 +221,8 @@ const App = () => {
       email: formValues.email,
       password: formValues.password,
     })
-      .then((res) => {
-          if (res.email) {
-            localStorage.setItem('email', res.email);
-          }
-          checkAuth();
+      .then(() => {
+          setLoggedIn(true);
           history.push('/movies');
         },
       )
@@ -330,6 +314,7 @@ const App = () => {
                 isMenuActive={isMobileMenuActive}
                 updateProfile={updateProfile}
                 onSignOut={signOut}
+                loggedIn={loggedIn}
               />
             </ProtectedRout>
             <Route path="*">

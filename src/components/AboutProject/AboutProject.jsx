@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import './AboutProject.css';
 import SectionWithInfo from '../sectionWithInfo/SectionWithInfo';
 
