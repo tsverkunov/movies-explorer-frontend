@@ -27,7 +27,7 @@ function Header({ loggedIn, onOpenMenu, isMenuActive, onCloseMenu }) {
           <>
             <img src={menuButton} className="header__menu-button" alt="Меню" onClick={onOpenMenu}></img>
             <Menu onCloseMenu={onCloseMenu} isMenuActive={isMenuActive}/>
-            <div className="header__container">
+            <nav className="header__container">
               <NavLink
                 to="/movies"
                 className={({ isActive }) => isActive ? 'header__link-movies header__link-movies_selected' : 'header__link-movies'}>
@@ -38,7 +38,7 @@ function Header({ loggedIn, onOpenMenu, isMenuActive, onCloseMenu }) {
                 className={({ isActive }) => isActive ? 'header__link-movies header__link-movies_selected' : 'header__link-movies'}>
                 Сохранённые фильмы
               </NavLink>
-            </div>
+            </nav>
             <Link className="header__account" to="/profile">Аккаунт</Link>
           </>
           :

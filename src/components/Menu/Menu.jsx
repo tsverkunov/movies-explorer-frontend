@@ -7,38 +7,36 @@ function Menu({ isMenuActive, onCloseMenu }) {
 
   return (
     <div className={`menu ${isMenuActive && 'menu_active'}`}>
-      <div className="menu__container">
-        <img
-          src={closeButton}
-          className="menu__close-button"
-          alt="Закрыть"
-          onClick={onCloseMenu}
-        ></img>
+      <img
+        src={closeButton}
+        className="menu__close-button"
+        alt="Закрыть"
+        onClick={onCloseMenu}
+      ></img>
+      <nav className="menu__container">
         <NavLink
           exact to="/"
-          className="menu__link-movies"
-          activeClassName="menu__link-movies_selected"
+          className={({ isActive }) => isActive ? 'menu__link-movies menu__link-movies_selected' : 'menu__link-movies'}
           onClick={onCloseMenu}
+          end
         >
           Главная
         </NavLink>
         <NavLink
           to="/movies"
-          className="menu__link-movies"
-          activeClassName="menu__link-movies_selected"
+          className={({ isActive }) => isActive ? 'menu__link-movies menu__link-movies_selected' : 'menu__link-movies'}
           onClick={onCloseMenu}
         >
           Фильмы
         </NavLink>
         <NavLink
           to="/saved-movies"
-          className="menu__link-movies"
-          activeClassName="menu__link-movies_selected"
+          className={({ isActive }) => isActive ? 'menu__link-movies menu__link-movies_selected' : 'menu__link-movies'}
           onClick={onCloseMenu}
         >
           Сохранённые фильмы
         </NavLink>
-      </div>
+      </nav>
       <Link className="menu__account" to="/profile" onClick={onCloseMenu}>Аккаунт</Link>
     </div>
   );
