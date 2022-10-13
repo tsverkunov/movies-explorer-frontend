@@ -26,7 +26,7 @@ function SearchForm({
   }, []);
 
   useEffect(() => {
-    if (pathname === '/movies'&& value || pathname === '/saved-movies') {
+    if ((pathname === '/movies' && value) || pathname === '/saved-movies') {
       onFilterMovies(value);
     }
   }, [shortMovie]);
