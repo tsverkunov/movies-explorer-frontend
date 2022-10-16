@@ -301,12 +301,8 @@ const App = () => {
               }/>
               <Route path="/profile" element={
                 <Profile
-                  onOpenMenu={openMobileMenu}
-                  onCloseMenu={closeMobileMenu}
-                  isMenuActive={isMobileMenuActive}
                   updateProfile={updateProfile}
                   onSignOut={signOut}
-                  loggedIn={loggedIn}
                 />
               }/>
             </Route>

@@ -15,7 +15,7 @@ function Menu({ isMenuActive, onCloseMenu }) {
       ></img>
       <nav className="menu__container">
         <NavLink
-          exact to="/"
+          to="/"
           className={({ isActive }) => isActive ? 'menu__link-movies menu__link-movies_selected' : 'menu__link-movies'}
           onClick={onCloseMenu}
           end
