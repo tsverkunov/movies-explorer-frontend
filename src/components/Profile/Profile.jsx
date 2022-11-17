@@ -7,14 +7,14 @@ import { useLocation } from 'react-router-dom';
 function Profile({ updateProfile, onSignOut }) {
   const { values, handleChange, errors, isValid, setValues, setIsValid } = useFormWithValidation();
   const currentUser = useContext(CurrentUserContext);
-  const location = useLocation();
+  const {pathname} = useLocation();
 
   useEffect(() => {
       setValues({
         name: currentUser.name,
         email: currentUser.email,
       });
-  }, [currentUser, location]);
+  }, [currentUser, pathname]);
 
   useEffect(() => {
     if (currentUser.name === values.name && currentUser.email === values.email) {

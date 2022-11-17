@@ -16,18 +16,14 @@ import SavedMovies from '../SavedMovies/SavedMovies';
 import ModalError from '../ModalInfo/ModalInfo';
 import ProtectedRout from '../ProtectedRout/ProtectedRout';
 import useMovieSearch from '../../utils/hooks/useMovieSearch';
+import useResize from '../../utils/hooks/useResize';
 import {
   FOR_FULL_SIZE_COUNT,
   FOR_LAPTOP_COUNT,
   FOR_MOBILE_COUNT,
   FULL_SIZE,
-  FULL_SIZE_COUNT,
   LAPTOP,
-  LAPTOP_COUNT,
   MOBILE,
-  MOBILE_COUNT,
-  TABLET,
-  TABLET_COUNT,
   URL_REGEX,
 } from '../../utils/constants/config';
 
@@ -38,9 +34,8 @@ const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [hiddenButton, setHiddenButton] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
-  const [count, setCount] = useState(0);
-  const [width, setWidth] = useState(window.innerWidth);
   const { pathname } = useLocation();
+  const { count } = useResize();
   const navigate = useNavigate();
 
   const {
@@ -101,31 +96,6 @@ const App = () => {
       setShowedMovies(savedMoviesList);
     }
   }, [pathname, savedMoviesList]);
-
-  useEffect(() => {
-    if (width >= FULL_SIZE) {
-      setCount(FULL_SIZE_COUNT);
-    } else if (FULL_SIZE > width && width > LAPTOP) {
-      setCount(LAPTOP_COUNT);
-    } else if (LAPTOP >= width && width > TABLET) {
-      setCount(TABLET_COUNT);
-    } else {
-      setCount(MOBILE_COUNT);
-    }
-  }, [width]);
-
-  function handleResize() {
-    setTimeout(() => {
-      setWidth(window.innerWidth);
-    }, 1000);
-  }
-
-  useEffect(() => {
-    window.addEventListener('resize', handleResize);
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, [width]);
 
   useEffect(() => {
     setMovies(savedFilteredMovies.slice(0, count));
