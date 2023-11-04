@@ -1,9 +1,9 @@
 import './App.css';
-import React, { useEffect, useState } from 'react';
-import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import React, {useEffect, useState} from 'react';
+import {Route, Routes, useLocation, useNavigate} from 'react-router-dom';
 import * as MainApi from '../../utils/MainApi';
 import * as MoviesApi from '../../utils/MoviesApi';
-import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+import {CurrentUserContext} from '../../contexts/CurrentUserContext';
 import Main from '../Main/Main';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
@@ -34,8 +34,8 @@ const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [hiddenButton, setHiddenButton] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
-  const { pathname } = useLocation();
-  const { count } = useResize();
+  const {pathname} = useLocation();
+  const {count} = useResize();
   const navigate = useNavigate();
 
   const {

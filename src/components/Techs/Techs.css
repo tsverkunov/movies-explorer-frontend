@@ -34,6 +34,11 @@
     font-weight: 400;
     font-size: 12px;
     line-height: 1.2;
+    transition: ease-in .2s;
+}
+
+.techs__icon:hover {
+    background: #2BE080;
 }
 
 @media screen and (min-width: 500px){

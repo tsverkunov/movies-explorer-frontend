@@ -10,10 +10,10 @@ function Profile({ updateProfile, onSignOut }) {
   const {pathname} = useLocation();
 
   useEffect(() => {
-      setValues({
-        name: currentUser.name,
-        email: currentUser.email,
-      });
+      setValues( {
+          name: currentUser.name,
+          email: currentUser.email,
+        })
   }, [currentUser, pathname]);
 
   useEffect(() => {
