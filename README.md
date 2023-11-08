@@ -2,8 +2,8 @@
 
 
 
-### [*Ссылка на проект*](https://it.dip.students.nomoredomains.xyz "Graduate work")
-### Домен сервера: [*https://api.it.dip.students.nomoredomains.xyz*](https://api.it.dip.students.nomoredomains.xyz "Graduate work")
+### [*Посмотреть проект*](https://itsverkunov.ru "Graduate work")
+### Домен сервера: [*https://api.itsverkunov.ru*](https://api.itsverkunov.ru "Graduate work")
 
 ***
 
