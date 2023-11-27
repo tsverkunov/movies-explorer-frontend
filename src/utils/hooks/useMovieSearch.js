@@ -16,7 +16,6 @@ const useMovieSearch = () => {
   const [savedAllMovies, setSavedAllMovies] = useLocalStorage('movies', [])
   const [savedFilteredMovies, setSavedFilteredMovies] = useLocalStorage('filteredMovies', [])
 
-
   useEffect(() => {
     setShortMovie(savedShortMovie);
   }, []);
@@ -41,7 +40,6 @@ const useMovieSearch = () => {
     setSearchWord(searchValue)
     setSavedFilteredMovies(handleFilter(savedAllMovies, shortMovie, searchValue))
   };
-
 
   const handleGetInSaveMovies = (searchValue) => {
     setShowedMovies(handleFilter(savedMoviesList, shortMovie, searchValue));

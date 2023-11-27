@@ -19,8 +19,7 @@ const MoviesCardList = ({
         : !movies.length
           ? <span className="cardList__not-found">Ничего не найдено</span>
           : error
-            ?
-            <span className="cardList__not-found">Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз</span>
+            ? <span className="cardList__not-found">Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз</span>
             : movies.map(movie => (
               <MoviesCard
                 movie={movie}

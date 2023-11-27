@@ -111,7 +111,7 @@ const App = () => {
 
   const handleAddCards = () => {
     let moreCards;
-    if (window.innerWidth >= MOBILE && window.innerWidth < LAPTOP) {
+    if (window.innerWidth <= MOBILE || window.innerWidth < LAPTOP) {
       moreCards = savedFilteredMovies.slice(movies.length, movies.length + FOR_MOBILE_COUNT);
     }
     if (window.innerWidth >= LAPTOP && window.innerWidth < FULL_SIZE) {
